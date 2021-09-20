@@ -1,0 +1,24 @@
+.content {
+    min-height: var(--content-min-height);
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    z-index: -1;
+
+    background-image: url('../../media/jpg/Joakim.jpg');
+    background-size: cover;
+    background-position: bottom;
+
+    filter: blur(4px) brightness(50%);
+}
+
+.title-container {
+    width: 100%;
+    height: 100vh;
+}

@@ -1,0 +1,110 @@
+.footer {
+    width: 100%;
+    min-height: var(--footer-height);
+
+    background-color: var(--dcol3);
+
+    position: absolute;
+    bottom: calc(- var(--footer-height));
+
+    display: grid;
+
+    grid-template-columns: 1.5fr 1fr;
+}
+
+.footer .footer-grid {
+    margin: 20px 60px 20px 60px;
+}
+
+.footer .top {
+    width: 80%;
+    padding: 10px 0 40px 0;
+}
+
+.footer .social-links {
+    padding-left: 0;
+    
+    position: relative;
+    left: -8px;
+    top: 16px;
+}
+
+.footer .social-links img {
+    transition: all 0.1s ease-out;
+}
+
+.footer .social-links img {
+    max-height: 40px;
+    margin-right: 10px;
+}
+
+.footer .social-links img:hover,
+.footer .social-links img:active {
+    transform: translateY(-2px) rotate(10deg);
+}
+
+.footer .title {
+    font-family: 'd-din';
+    font-size: 36px;
+
+    padding: 0;
+}
+
+.footer .bottom {
+    width: 80%;
+}
+
+.footer .bottom > .row {
+    margin-bottom: 10px;
+}
+
+.footer .bottom > .row > .col {
+    padding-left: 10px;
+    margin-left: -16px;
+}
+
+.footer .bottom > .row > .col > * {
+    margin-left: 4px;
+}
+
+.footer .bottom a,
+.footer .bottom p {
+    width: auto;
+
+    color: var(--text-light);
+    text-decoration: none;
+
+    opacity: 60%;
+
+    padding: 0;
+}
+
+.footer .bottom a:hover,
+.footer .bottom a:active,
+
+.footer .bottom p:hover,
+.footer .bottom p:active {
+    opacity: 50%;
+}
+
+.footer .bottom .link-title {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.footer .discord-embed {
+    margin: 56px 56px 56px 56px;
+}
+
+
+
+@media screen and (max-width: 800px) {
+    .footer {
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.8fr 1fr;
+    }
+
+    .footer .discord-embed {
+        margin-top: 0;
+    }
+}
