@@ -27,15 +27,15 @@
     position: relative;
     left: -8px;
     top: 16px;
-}
 
-.footer .social-links img {
-    transition: all 0.1s ease-out;
+    white-space: nowrap;
 }
 
 .footer .social-links img {
     max-height: 40px;
     margin-right: 10px;
+
+    transition: all 0.1s ease-out;
 }
 
 .footer .social-links img:hover,
