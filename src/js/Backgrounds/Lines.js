@@ -34,6 +34,7 @@ export default class Lines {
 
         this.ctx = props.ctx;
 
+        this.randomRange = 2000;
         this.lines = [];
 
         for (var i = 0; i < 100; i++) {
@@ -41,7 +42,7 @@ export default class Lines {
                 this.lines.push(new Line({
                     canvas: {width: this.props.width, height: this.props.height}
                 }));
-            }, Math.random() * 2000)
+            }, Math.random() * this.randomRange)
         }
     }
 
@@ -52,9 +53,12 @@ export default class Lines {
             line.update(dt);
             if (line.finished) {
                 this.lines.splice(this.lines.indexOf(line), 1);
-                this.lines.push(new Line({
-                    canvas: {width: this.props.width, height: this.props.height}
-                }))
+                
+                setTimeout(() => {
+                    this.lines.push(new Line({
+                        canvas: {width: this.props.width, height: this.props.height}
+                    }));
+                }, Math.random() * this.randomRange)
             }
         });
     }

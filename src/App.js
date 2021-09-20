@@ -8,6 +8,8 @@ export default function App() {
     <Route exact path="/" component={Pages.Home} />
     <Redirect exact path="/home" to="/" />
 
+    <Route exact path="/games" component={Pages.Games} />
+
     <Route exact path="/secret" component={Pages.Secret} />
 
     <Route path="/error" component={Pages.Error} />

@@ -1,0 +1,30 @@
+.game {
+    width: 200px;
+    height: 300px;
+
+    background-color: var(--dcol3);
+
+    padding: 10px;
+
+    text-transform: capitalize;
+    cursor: pointer;
+
+    transition: all 0.125s ease-out;
+}
+
+.game:hover,
+.game:active {
+    transform: scale(1.025);
+    opacity: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.75);
+}
+
+.game > * {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.game > *:hover {
+    color: var(--text);
+}

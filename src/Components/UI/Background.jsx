@@ -10,7 +10,7 @@ export default class Background extends React.Component {
         super();
 
         this.variant = `${variant.charAt(0).toUpperCase()}${variant.slice(1)}`;
-
+        this.variantClass = Variants[this.variant]
 
         this.rest = {...rest}
 
@@ -50,7 +50,11 @@ export default class Background extends React.Component {
         let canvas = document.getElementById('background-canvas');
         this.ctx = canvas.getContext('2d');
 
-        this.background = new Variants[this.variant]({ctx: this.ctx, ...this.rest})
+        this.background = new this.variantClass({ctx: this.ctx, ...this.rest});
+        
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') this.background = new this.variantClass({ctx: this.ctx, ...this.rest});
+        });
 
         requestAnimationFrame(this.loop);
     }

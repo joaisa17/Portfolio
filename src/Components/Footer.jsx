@@ -46,6 +46,7 @@ export default class Footer extends React.Component {
                             <Row><SocialLink href="youtube.com/ignwombat">YouTube</SocialLink></Row>
                             <Row><SocialLink href="soundcloud.com/ignwombat">SoundCloud</SocialLink></Row>
                             <Row><SocialLink href="ignwombat.newground.com">NewGrounds</SocialLink></Row>
+                            <Row><SocialLink href="discord.gg/YdJ345mXmK">Discord Server</SocialLink></Row>
                         </Col>
                     </Row>
                 </Row>

@@ -8,7 +8,7 @@ export default function Home() {
 
     return <Page title="Home">
         <div className="background-image" />
-        <Background variant="dots" color="rgba(100, 50, 255, 0.2)" className="test" />
+        <Background variant="lines" color="rgba(40, 20, 255, .25)" className="test" />
         
         <div className="title-container">
             <VerticallyCenteredDiv className="text-center" style={{marginTop: '-50px'}}>
