@@ -13,7 +13,7 @@
 }
 
 .footer .footer-grid {
-    margin: 20px 60px 20px 60px;
+    margin: 20px 60px 20px 8vw;
 }
 
 .footer .top {
@@ -93,7 +93,12 @@
 }
 
 .footer .discord-embed {
-    margin: 56px 56px 56px 56px;
+    margin: 30px 56px 56px 8vw;
+}
+
+.footer .discord-embed iframe {
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, .75);
 }
 
 

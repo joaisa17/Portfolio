@@ -20,10 +20,10 @@ export default class Player {
         this.left = false;
         this.right = false;
 
-        this.movementSpeed = 32;
+        this.movementSpeed = 42;
 
-        this.size = 56;
-        this.collisionRadius = 54;
+        this.size = 48;
+        this.collisionRadius = 48;
 
         this.imageSrc = document.getElementById('assets/eirik');
         this.imageSizeOffset = 56;
@@ -81,12 +81,5 @@ export default class Player {
             this.size + this.imageSizeOffset,
             this.size + this.imageSizeOffset
         )
-
-         ctx.beginPath();
-
-         ctx.arc(this.pos.x, this.pos.y, this.collisionRadius, 0, 2*Math.PI, false);
-
-         ctx.fillStyle = 'rgba(255, 100, 100, 0.5)';
-         ctx.fill();
     }
 }

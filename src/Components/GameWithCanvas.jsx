@@ -35,6 +35,21 @@ export default class GameWithCanvas extends React.Component {
 
     componentDidMount() {
 
+        const preventScrollingKeys = [
+            'Space',
+            'ArrowUp',
+            'ArrowDown',
+            'ArrowLeft',
+            'ArrowRight',
+            
+            // For compatibility with older browsers
+            32,
+            37,
+            38,
+            39,
+            40
+        ]
+
         this.mounted = true;
 
         this.game = new this.props.game({
@@ -48,6 +63,15 @@ export default class GameWithCanvas extends React.Component {
 
         this.ctx = canvas.getContext('2d');
 
+        // Event listeners, for ergonomics and cheat prevention
+        window.addEventListener('keydown', e => {
+            if(preventScrollingKeys.indexOf(e.code) > -1 || preventScrollingKeys.indexOf(e.keyCode) > -1) e.preventDefault() || window.event.preventDefault()
+        }, false);
+
+        window.addEventListener('blur', () => {
+            if (this.game && this.game.state !== 'paused') this.game.togglePause();
+        });
+
         requestAnimationFrame(this.gameLoop);
     }
 
@@ -56,6 +80,6 @@ export default class GameWithCanvas extends React.Component {
     }
 
     render() {
-        return <canvas id="game-canvas" className="game-canvas" width={this.gameWidth} height={this.gameHeight} />
+        return <canvas id="game-canvas" className="game-canvas mx-auto mt-4" width={this.gameWidth} height={this.gameHeight} />
     }
 }

@@ -6,8 +6,8 @@ import { Page, GameWithCanvas } from '../../Components';
 import { EirikVsAdrian as Assets } from '../../media/png'
 
 export default function EirikVsAdrian() {
-    return <Page title="Eirik Vs. Adrian" nofooter>
-        <GameWithCanvas game={Game} />
+    return <Page title="Eirik Vs. Adrian">
+        <GameWithCanvas game={Game} devmode />
 
         <div className="game-assets">
             <img src={Assets.Eirik} id="assets/eirik" alt="eirik" />

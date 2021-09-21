@@ -1,7 +1,13 @@
 .game-canvas {
     background-color: var(--dcol2);
+
+    width: auto;
+
+    display: block;
 }
 
 .game-assets {
+    width: 0;
+    height: 0;
     display: none;
 }

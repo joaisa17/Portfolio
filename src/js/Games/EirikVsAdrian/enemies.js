@@ -2,22 +2,49 @@ class Enemy {
     constructor(game) {
         this.game = game;
 
-        this.pos = {
-            x: 10,
-            y: 50
-        }
+        this.toRemove = false;
 
-        this.vel = {
-            x: 10,
-            y: 1.
-        }
+        this.gw = this.game.props.gameWidth;
+        this.gh = this.game.props.gameHeight;
 
-        this.size = 32;
-        this.collisionRadius = 30;
+        this.minSpeed = 10;
+        this.speedMultiplier = 0.8;
 
-        this.imageSizeOffset = 36;
+        this.size = 56;
+        this.collisionRadius = 40;
 
+        this.imageSizeOffset = 28;
         this.imageSrc = document.getElementById('assets/adrian');
+
+        this.originFace = Math.max(
+            Math.floor(Math.random() * 4 + 0.5),
+            1
+        );
+
+        this.pos = {
+            x: 0,
+            y: 0
+        }
+
+        this.pos = (
+            this.originFace <= 2 ? { // Top / Bottom
+                x: Math.random() * this.gw,
+                y: this.originFace === 1 ? -this.imageSizeOffset * 2 : this.gh + this.imageSizeOffset * 2
+            } : { // Left / Right
+                x: this.originFace === 3 ? -this.imageSizeOffset * 2 : this.gw + this.imageSizeOffset * 2,
+                y: Math.random() * this.gh
+            }
+        );
+
+        this.vel = (
+            this.originFace <= 2 ? { // Top / Bottom
+                x: Math.random() * this.gw / 30,
+                y: this.originFace === 1 ? Math.random() * this.gh / 10 + this.minSpeed : -Math.random() * this.gh / 10 - this.minSpeed
+            } : { // Left / Right
+                x: this.originFace === 3 ? Math.random() * this.gw / 10 + this.minSpeed : -Math.random() * this.gw / 10 - this.minSpeed,
+                y: Math.random() * this.gh / 30
+            }
+        );
     }
 
     distanceFromPlayer() {
@@ -34,17 +61,34 @@ class Enemy {
     }
 
     update(dt) {
-        this.pos.x += this.vel.x * dt / 100;
-        this.pos.y += this.vel.y * dt / 100;
+        this.pos.x += (this.vel.x * dt / 100) * this.speedMultiplier;
+        this.pos.y += (this.vel.y * dt / 100) * this.speedMultiplier;
+
+        switch(this.originFace) {
+            
+            case 1:
+                if (this.pos.y - this.imageSizeOffset * 2 > this.gh) this.toRemove = true;
+            break;
+
+            case 2:
+                if (this.pos.y + this.imageSizeOffset * 2 < 0) this.toRemove = true;
+            break;
+
+            case 3:
+                if (this.pos.x - this.imageSizeOffset * 2 > this.gw) this.toRemove = true;
+            break;
+
+            case 4:
+                if (this.pos.x + this.imageSizeOffset * 2 < 0) this.toRemove = true;
+            break;
+
+            default: break;
+        }
 
         if (this.detectCollision()) this.game.state = 'gameover';
     }
 
     draw(ctx) {
-        ctx.font = '16px arial'
-        ctx.fillStyle = 'white'
-        ctx.textAlign = 'center'
-        ctx.fillText(Math.floor((this.distanceFromPlayer() - (this.collisionRadius + this.game.player.collisionRadius)) * Math.pow(10, 3)) / Math.pow(10, 3), this.pos.x, this.pos.y - 40);
 
         ctx.drawImage(
             this.imageSrc,
@@ -53,12 +97,6 @@ class Enemy {
             this.size + this.imageSizeOffset,
             this.size + this.imageSizeOffset
         )
-
-        ctx.beginPath();
-        ctx.arc(this.pos.x, this.pos.y, this.collisionRadius, 0, 2*Math.PI, false);
-
-        ctx.fillStyle = 'rgba(255, 100, 100, .5)';
-        ctx.fill();
     }
 }
 
@@ -67,12 +105,14 @@ export default class Enemies {
         this.game = game;
 
         this.enemies = [];
-
-        this.createEnemy();
     }
 
     createEnemy() {
-        this.enemies.push(new Enemy(this.game));
+        if (this.game.state !== 'running') return;
+
+        setTimeout(() => {
+            this.enemies.push(new Enemy(this.game));
+        }, Math.random());
     }
 
     reset() {
@@ -85,6 +125,8 @@ export default class Enemies {
         this.enemies.forEach(enemy => {
             enemy.update(dt);
         });
+
+        if (Math.floor(Math.random() + this.game.scoreFloat / 1000) >= 1) this.createEnemy();
     }
 
     draw(ctx) {
