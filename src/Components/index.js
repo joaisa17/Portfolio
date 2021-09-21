@@ -8,6 +8,7 @@ import LogoutButton from './LogoutButton';
 
 import VerticallyCenteredDiv from './UI/VerticallyCenteredDiv';
 import Background from './UI/Background';
+import GameWithCanvas from './GameWithCanvas';
 
 import SocialLink from './SocialLink';
 import DiscordEmbed from './DiscordEmbed';
@@ -23,6 +24,7 @@ export {
 
     VerticallyCenteredDiv,
     Background,
+    GameWithCanvas,
 
     SocialLink,
     DiscordEmbed

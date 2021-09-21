@@ -19,6 +19,7 @@ export default function Header() {
 
         <Navbar.Collapse className="nav-links">
             <Link to="/secret">Secret</Link>
+            <Link to="/about">About me</Link>
             <a href="#contact">Contact</a>
             <Link to="/games">My games</Link>
         </Navbar.Collapse>

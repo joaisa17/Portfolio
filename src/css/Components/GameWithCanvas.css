@@ -1,0 +1,7 @@
+.game-canvas {
+    background-color: var(--dcol2);
+}
+
+.game-assets {
+    display: none;
+}

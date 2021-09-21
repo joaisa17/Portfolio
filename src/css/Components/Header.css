@@ -31,6 +31,7 @@
 }
 
 .header .nav-links a {
+    text-transform: capitalize;
 
     text-decoration: none;
     color: var(--text-light);

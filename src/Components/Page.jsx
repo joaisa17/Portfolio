@@ -17,6 +17,8 @@ export default function Page(props) {
         if(hash === '#contact') {
             let contactElement = document.getElementById('contact');
 
+            if (!contactElement) return;
+
             contactElement.classList.remove('flash-end');
             contactElement.classList.add('flash-enter')
             setTimeout(() => {
@@ -31,8 +33,8 @@ export default function Page(props) {
             <title>{props.title ? `${props.title} | J.I` : 'Joakim Isaksen'}</title>
         </Helmet>
 
-        <Header title={props.title} />
-        <div className="content">{props.children}</div>
-        <Footer />
+        {!props.noheader ? <Header title={props.title} /> : null}
+        <div className="content" style={props.style}>{props.children}</div>
+        {!props.nofooter ? <Footer /> : null}
     </React.Fragment>
 }
