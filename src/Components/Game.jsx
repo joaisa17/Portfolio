@@ -7,7 +7,7 @@ import { Col, Card } from 'react-bootstrap';
 
 export default function Game(props) {
     return <Col>
-        <Card className="game mx-auto mb-4">
+        <Card className="game mx-auto mb-4" title={props.title}>
             <Link to={props.href}>
             <Card.Img variant="top" src={props.thumbnail} />
             <Card.Title className="title py-2">{props.title}</Card.Title>

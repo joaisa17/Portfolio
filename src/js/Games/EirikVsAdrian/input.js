@@ -42,7 +42,11 @@ export default class InputHandler {
         else if (this.keyIsKeyBind(code, this.keyBinds.moveLeft)) this.plr.move('left');
         else if (this.keyIsKeyBind(code, this.keyBinds.moveRight)) this.plr.move('right');
 
-        else if (this.keyIsKeyBind(code, this.keyBinds.restart) && this.game.state === 'gameover') this.game.restart();
+        else if (this.keyIsKeyBind(code, this.keyBinds.restart)) {
+            if (this.game.state === 'gameover') this.game.restart();
+            else if (this.game.state === 'running' && this.game.props.devmode) this.game.gameOver();
+        }
+
         else if (this.keyIsKeyBind(code, this.keyBinds.pause)) this.game.togglePause();
     }
 

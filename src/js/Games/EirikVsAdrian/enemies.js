@@ -1,3 +1,7 @@
+function clamp(num, min, max) {
+    return Math.min(Math.max(num, min), max);
+}
+
 class Enemy {
     constructor(game) {
         this.game = game;
@@ -9,6 +13,9 @@ class Enemy {
 
         this.minSpeed = 10;
         this.speedMultiplier = 0.8;
+
+        this.maxHomingSpeed = 10;
+        this.homingMultiplier = 1.5;
 
         this.size = 56;
         this.collisionRadius = 40;
@@ -62,25 +69,37 @@ class Enemy {
         return Math.abs(this.distanceFromPlayer()) <= this.collisionRadius + this.game.player.collisionRadius;
     }
 
+    getHomingNumber(playerAxisPos, enemyAxisPos) {
+        let d = playerAxisPos - enemyAxisPos;
+
+        return Math.min((d * Math.pow(this.game.scoreFloat, 1.1)) * (this.homingMultiplier / 100000), this.maxHomingSpeed);
+    }
+
     update(dt) {
         this.pos.x += (this.vel.x * dt / 100) * this.speedMultiplier;
         this.pos.y += (this.vel.y * dt / 100) * this.speedMultiplier;
 
+        let plrPos = this.game.player.pos
+
         switch(this.originFace) {
             
             case 1:
+                this.vel.x += this.getHomingNumber(plrPos.x, this.pos.x);
                 if (this.pos.y - this.imageSizeOffset * 2 > this.gh) this.toRemove = true;
             break;
 
             case 2:
+                this.vel.x += this.getHomingNumber(plrPos.x, this.pos.x);
                 if (this.pos.y + this.imageSizeOffset * 2 < 0) this.toRemove = true;
             break;
 
             case 3:
+                this.vel.y += this.getHomingNumber(plrPos.y, this.pos.y);
                 if (this.pos.x - this.imageSizeOffset * 2 > this.gw) this.toRemove = true;
             break;
 
             case 4:
+                this.vel.y += this.getHomingNumber(plrPos.y, this.pos.y);
                 if (this.pos.x + this.imageSizeOffset * 2 < 0) this.toRemove = true;
             break;
 
@@ -93,14 +112,35 @@ class Enemy {
     }
 
     draw(ctx) {
-
         ctx.drawImage(
             this.imageSrc,
             this.pos.x - (this.size + this.imageSizeOffset) / 2,
             this.pos.y - (this.size + this.imageSizeOffset) / 2,
             this.size + this.imageSizeOffset,
             this.size + this.imageSizeOffset
-        )
+        );
+
+        // Draw helping dots
+
+        let plrPos = this.game.player.pos;
+        let dx = plrPos.x - this.pos.x;
+        let dy = plrPos.y - this.pos.y;
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+
+        let dotSize = clamp(
+            8 / Math.max(1 / 50, this.distanceFromPlayer() / 200),
+            0,
+            20
+        );
+        
+        ctx.beginPath();
+        ctx.arc(
+            plrPos.x - dx / 2,
+            plrPos.y - dy / 2,
+            dotSize, 0, 2 * Math.PI
+        );
+        ctx.fill();
     }
 }
 
@@ -109,6 +149,22 @@ export default class Enemies {
         this.game = game;
 
         this.enemies = [];
+
+        // Chances: x/100
+        this.minChance = 0.025;
+        this.maxChance = 4;
+
+        this.spawnRate = 0.8;
+    }
+
+    getSpawnChance() {
+        let score = this.game.scoreFloat;
+
+        return clamp(
+            Math.random() * (this.spawnRate / 100) + Math.pow(score, 1.2) / 500 - Math.pow(this.enemies.length, 1.5) / 50,
+            this.minChance,
+            this.maxChance
+        );
     }
 
     createEnemy() {
@@ -133,7 +189,7 @@ export default class Enemies {
             if (enemy.toRemove) this.enemies.splice(this.enemies.indexOf(enemy), 1);
         });
 
-        if (Math.floor(Math.random() + this.game.scoreFloat / 1000) >= 1) this.createEnemy();
+        if (Math.floor(Math.random() * 100) <= this.getSpawnChance()) this.createEnemy();
     }
 
     draw(ctx) {

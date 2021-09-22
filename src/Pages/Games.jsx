@@ -22,8 +22,7 @@ export default function Games() {
 
             <Row className="justify-content-center">
                 <Game title="Eirik Vs. Adrian" thumbnail={EirikVsAdrian.Eirik} href="/games/eirik-vs-adrian">
-                    This is one of the first web games I ever made. I have further
-                    developed it to improve gameplay and compatibility.
+                    This is one of my first web games
                 </Game>
             </Row>
         </Container>

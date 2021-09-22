@@ -7,9 +7,8 @@ import Dev from './dev';
 
 export default class Game {
     constructor(props) {
+        this.terminated = false;
         this.props = props;
-
-        console.log(props)
 
         this.score = 0;
         this.scoreFloat = 0;
@@ -29,6 +28,13 @@ export default class Game {
         this.screens = new Screens(this);
 
         this.dev = props.devmode ? new Dev(this) : undefined;
+    }
+
+    onUnmount() {
+        this.terminated = true;
+        this.soundHandler.stopAllSounds();
+        document.removeEventListener('keydown', this.inputHandler.onKeyDown);
+        document.removeEventListener('keyup', this.inputHandler.onKeyUp);
     }
 
     gameOver() {
@@ -56,6 +62,7 @@ export default class Game {
     }
 
     restart() {
+        if (this.state !== 'gameover') return;
         this.sessionHighScore = this.score > this.sessionHighScore ? this.score : this.sessionHighScore;
         this.scoreFloat = 0;
 
@@ -68,22 +75,26 @@ export default class Game {
     }
 
     update(dt) {
+        if (!dt) return;
+
         if (this.state === 'gameover' || this.state === 'paused') return;
         this.player.update(dt);
         this.enemyHandler.update(dt);
 
-        this.scoreFloat += dt / 1000;
+        this.scoreFloat += dt / 1000 * (this.props.devmode ? 4 : 1);
 
         if (this.score !== Math.floor(this.scoreFloat)) {
             this.score = Math.floor(this.scoreFloat);
 
             if (this.score % this.swooshInterval === 0 && this.score > 0) this.soundHandler.swoosh.play();
         }
+
+        this.soundHandler.music.rate(1 + Math.pow(this.scoreFloat, 1.01) / 2500)
     }
 
     draw(ctx) {
-        this.player.draw(ctx);
         this.enemyHandler.draw(ctx);
+        this.player.draw(ctx);
 
         if (this.dev) {
             this.dev.drawHitboxes(ctx);

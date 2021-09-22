@@ -4,6 +4,7 @@
     background-color: var(--dcol3);
 
     padding: 10px;
+    border-radius: 12px;
 
     text-transform: capitalize;
     cursor: pointer;

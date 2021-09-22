@@ -13,6 +13,8 @@
 
 .inner-container {
     height: 100%;
+
+    position: relative;
 }
 
 .game-assets {
@@ -21,12 +23,17 @@
     display: none;
 }
 
+.game-container:fullscreen .bottom-ui {
+    background-color: transparent;
+}
+
 .game-container .bottom-ui {
-    background-color: blue;
+    background-color: rgba(0, 0, 0, 0.25);
     width: 100%;
     height: 40px;
 
-    margin-top: -40px;
+    position: absolute;
+    bottom: 0;
 
     z-index: 2;
 }
@@ -42,7 +49,7 @@
 }
 
 .toggle-fullscreen-button:hover {
-    filter: drop-shadow(0 0 1px #fff);
+    filter: drop-shadow(0 0 2px #fff);
 }
 
 .game-container:fullscreen > .game-canvas {

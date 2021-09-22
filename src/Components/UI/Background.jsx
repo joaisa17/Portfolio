@@ -14,25 +14,40 @@ export default class Background extends React.Component {
 
         this.rest = {...rest}
 
+        this.background = undefined;
         this.ctx = undefined;
 
         if (!this.rest.width) this.rest.width = window.screen.width;
         if (!this.rest.height) this.rest.height = window.screen.height;
 
-        this.loop = this.loop.bind(this);
         this.mounted = false;
+        this.paused = false;
+
+        this.loop = this.loop.bind(this);
+        this.pauseBackground = this.pauseBackground.bind(this);
     }
 
+    pauseBackground() {
+        this.paused = true;
+        if (this.background.onPause) this.background.onPause();
+    }
+
+    unpauseBackground() {
+        this.paused = false;
+        if (this.background.onUnpause) this.background.onUnpause();
+    }
     
 
     loop(timeStamp) {
-        deltaTime = timeStamp - lastTime;
-        lastTime = timeStamp;
+        if (!this.paused) {
+            deltaTime = timeStamp - lastTime;
+            lastTime = timeStamp;
 
-        this.ctx.clearRect(0, 0, this.rest.width, this.rest.height);
+            this.ctx.clearRect(0, 0, this.rest.width, this.rest.height);
 
-        this.background.update(deltaTime);
-        this.background.draw(this.ctx);
+            this.background.update(deltaTime);
+            this.background.draw(this.ctx);
+        }
         
         if (!this.mounted) return;
         requestAnimationFrame(this.loop);
@@ -51,10 +66,10 @@ export default class Background extends React.Component {
         this.ctx = canvas.getContext('2d');
 
         this.background = new this.variantClass({ctx: this.ctx, ...this.rest});
-        
-        document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'visible') this.background = new this.variantClass({ctx: this.ctx, ...this.rest});
-        });
+
+        document.addEventListener('blur', this.pauseBackground);
+
+        document.addEventListener('focus', this.unpauseBackground);
 
         requestAnimationFrame(this.loop);
     }

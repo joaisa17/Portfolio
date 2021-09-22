@@ -32,12 +32,17 @@ export default class Screens {
         }
     }
 
-    running(ctx) {
+    running(ctx, dt) {
         ctx.fillStyle = 'white';
         ctx.font = 'normal 32px arial'
         ctx.textAlign = 'center';
 
         this.drawCenteredText(ctx, `Score: ${this.game.score}`, this.gh - 48);
+        
+        if (this.game.props.devmode) {
+            let shortenedChance = Math.floor(this.game.enemyHandler.getSpawnChance() * 1000) / 1000
+            this.drawCenteredText(ctx, `Enemy spawn chance: ${shortenedChance}% per frame`, 48);
+        }
     }
 
     paused(ctx) {

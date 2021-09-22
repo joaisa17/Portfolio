@@ -1,4 +1,5 @@
 import Home from './Home';
+import About from './About';
 import Games from './Games';
 
 import Secret from './Secret';
@@ -9,6 +10,7 @@ import * as GamePages from './GamePages'
 
 export {
     Home,
+    About,
     Games,
     
     Secret,

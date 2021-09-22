@@ -2,7 +2,7 @@ import React from 'react'
 
 import '../css/Components/GameWithCanvas.css';
 
-import { Container, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { FullscreenButton } from '../media/svg/ui';
 
 const preventScrollingKeys = [
@@ -51,7 +51,7 @@ export default class GameWithCanvas extends React.Component {
     }
 
     gameLoop(ts) {
-        if (this.lt === 0) this.lt = ts;
+        if (!this.mounted) return;
         let dt = ts - this.lt;
         this.lt = ts;
 
@@ -62,7 +62,7 @@ export default class GameWithCanvas extends React.Component {
             this.game.draw(this.ctx);
         }
 
-        if (this.mounted) requestAnimationFrame(this.gameLoop);
+        requestAnimationFrame(this.gameLoop);
     }
 
     componentDidMount() {
@@ -96,6 +96,7 @@ export default class GameWithCanvas extends React.Component {
     }
 
     componentWillUnmount() {
+        this.game.onUnmount();
         this.mounted = false;
         window.removeEventListener('keydown', this.preventScroll)
     }
@@ -103,10 +104,10 @@ export default class GameWithCanvas extends React.Component {
     render() {
         return <div id="game-container" className="game-container mx-auto" style={{width: this.gameWidth, height: this.gameHeight}}>
 
-            <div className="inner-container" style={{width: this.gameWidth}}>
+            <div className="inner-container">
                 <canvas id="game-canvas" className="game-canvas mx-auto" width={this.gameWidth} height={this.gameHeight} />
 
-                <div className="bottom-ui mx-auto" style={{width: this.gameWidth}}>
+                <div className="bottom-ui">
                     <Row className="float-end">
                         <Col><img src={FullscreenButton} className="toggle-fullscreen-button" alt="Toggle Fullscreen" onClick={this.toggleFullScreen} /></Col>
                     </Row>

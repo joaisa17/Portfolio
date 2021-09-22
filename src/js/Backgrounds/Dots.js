@@ -79,6 +79,15 @@ export default class Dots {
         }
     }
 
+    onUnpause() {
+        this.dots.forEach(dot => {
+            dot.position = {
+                x: Math.random() * this.props.canvas.width,
+                y: Math.random() * this.props.canvas.height
+            }
+        })
+    }
+
     update(dt) {
         if (!dt) return;
 
