@@ -14,7 +14,9 @@ class Enemy {
         this.collisionRadius = 40;
 
         this.imageSizeOffset = 28;
-        this.imageSrc = document.getElementById('assets/adrian');
+        
+        this.imageSrc = document.createElement('img');
+        this.imageSrc.setAttribute('src', this.game.props.assets.img.adrian);
 
         this.originFace = Math.max(
             Math.floor(Math.random() * 4 + 0.5),
@@ -85,7 +87,9 @@ class Enemy {
             default: break;
         }
 
-        if (this.detectCollision()) this.game.state = 'gameover';
+        if (this.detectCollision() && !this.game.props.devmode) {
+            this.game.gameOver();
+        }
     }
 
     draw(ctx) {
@@ -112,6 +116,7 @@ export default class Enemies {
 
         setTimeout(() => {
             this.enemies.push(new Enemy(this.game));
+            this.game.soundHandler.onEnemySpawn();
         }, Math.random());
     }
 
@@ -124,6 +129,8 @@ export default class Enemies {
     update(dt) {
         this.enemies.forEach(enemy => {
             enemy.update(dt);
+
+            if (enemy.toRemove) this.enemies.splice(this.enemies.indexOf(enemy), 1);
         });
 
         if (Math.floor(Math.random() + this.game.scoreFloat / 1000) >= 1) this.createEnemy();

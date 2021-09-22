@@ -10,7 +10,7 @@ export default class InputHandler {
             moveRight: ['KeyD', 'ArrowRight'],
 
             restart: 'KeyR',
-            pause: 'Space'
+            pause: 'Space',
         }
 
         this.keyStates = {};
@@ -43,12 +43,7 @@ export default class InputHandler {
         else if (this.keyIsKeyBind(code, this.keyBinds.moveRight)) this.plr.move('right');
 
         else if (this.keyIsKeyBind(code, this.keyBinds.restart) && this.game.state === 'gameover') this.game.restart();
-        else if (
-            this.keyIsKeyBind(code, this.keyBinds.pause) &&
-            (this.game.state === 'paused' || this.game.state === 'running')
-        ) this.game.state = (
-            this.game.state === 'paused' ? 'running' : 'paused'
-        )
+        else if (this.keyIsKeyBind(code, this.keyBinds.pause)) this.game.togglePause();
     }
 
     onKeyUp(code) {

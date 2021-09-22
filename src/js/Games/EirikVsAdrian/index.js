@@ -1,6 +1,7 @@
 import Player from './player';
 import Enemies from './enemies';
 import InputHandler from './input';
+import SoundHandler from './sound';
 import Screens from './screens';
 import Dev from './dev';
 
@@ -8,12 +9,17 @@ export default class Game {
     constructor(props) {
         this.props = props;
 
+        console.log(props)
+
         this.score = 0;
         this.scoreFloat = 0;
 
         this.sessionHighScore = 0;
+        this.swooshInterval = 10;
 
         this.state = 'paused';
+
+        this.soundHandler = new SoundHandler(this);
 
         this.player = new Player(this);
         this.enemyHandler = new Enemies(this);
@@ -25,10 +31,28 @@ export default class Game {
         this.dev = props.devmode ? new Dev(this) : undefined;
     }
 
+    gameOver() {
+        if (this.state === 'gameover') return;
+
+        this.state = 'gameover';
+
+        this.soundHandler.onGameOver();
+    }
+
     togglePause() {
         if (this.state !== 'running' && this.state !== 'paused') return;
 
-        this.state = this.state === 'paused' ? 'running' : 'paused';
+        let toPause = this.state === 'running';
+
+        if (toPause) {
+            this.state = 'paused';
+            this.soundHandler.onPause();
+        }
+
+        else {
+            this.state = 'running';
+            this.soundHandler.onUnpause();
+        }
     }
 
     restart() {
@@ -37,6 +61,8 @@ export default class Game {
 
         this.player.reset();
         this.enemyHandler.reset();
+
+        this.soundHandler.onRestart();
 
         this.state = 'running';
     }
@@ -47,17 +73,22 @@ export default class Game {
         this.enemyHandler.update(dt);
 
         this.scoreFloat += dt / 1000;
-        this.score = Math.floor(this.scoreFloat);
+
+        if (this.score !== Math.floor(this.scoreFloat)) {
+            this.score = Math.floor(this.scoreFloat);
+
+            if (this.score % this.swooshInterval === 0 && this.score > 0) this.soundHandler.swoosh.play();
+        }
     }
 
     draw(ctx) {
         this.player.draw(ctx);
         this.enemyHandler.draw(ctx);
 
-        if (this.screens[this.state]) this.screens[this.state](ctx);
-
         if (this.dev) {
             this.dev.drawHitboxes(ctx);
         }
+
+        if (this.screens[this.state]) this.screens[this.state](ctx);
     }
 }

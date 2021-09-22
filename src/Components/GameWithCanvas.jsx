@@ -2,6 +2,24 @@ import React from 'react'
 
 import '../css/Components/GameWithCanvas.css';
 
+import { Container, Row, Col } from 'react-bootstrap';
+import { FullscreenButton } from '../media/svg/ui';
+
+const preventScrollingKeys = [
+    'Space',
+    'ArrowUp',
+    'ArrowDown',
+    'ArrowLeft',
+    'ArrowRight',
+    
+    // For compatibility with older browsers
+    32,
+    37,
+    38,
+    39,
+    40
+]
+
 export default class GameWithCanvas extends React.Component {
     constructor(props) {
         super(props);
@@ -16,6 +34,20 @@ export default class GameWithCanvas extends React.Component {
         this.lt = 0;
 
         this.gameLoop = this.gameLoop.bind(this);
+        this.preventScroll = this.preventScroll.bind(this);
+        this.toggleFullScreen = this.toggleFullScreen.bind(this);
+    }
+
+    toggleFullScreen() {
+        let container = document.getElementById('game-container');
+        if (!container) return;
+
+        if (document.fullscreenElement !== null) document.exitFullscreen();
+        else container.requestFullscreen();
+    }
+
+    preventScroll(e) {
+        if (preventScrollingKeys.indexOf(e.code) > -1 || preventScrollingKeys.indexOf(e.keyCode) > -1) e.preventDefault();
     }
 
     gameLoop(ts) {
@@ -35,37 +67,25 @@ export default class GameWithCanvas extends React.Component {
 
     componentDidMount() {
 
-        const preventScrollingKeys = [
-            'Space',
-            'ArrowUp',
-            'ArrowDown',
-            'ArrowLeft',
-            'ArrowRight',
-            
-            // For compatibility with older browsers
-            32,
-            37,
-            38,
-            39,
-            40
-        ]
-
         this.mounted = true;
-
-        this.game = new this.props.game({
-            gameWidth: this.gameWidth,
-            gameHeight: this.gameHeight,
-            ...this.props
-        });
 
         let canvas = document.getElementById('game-canvas');
         if (!canvas) return;
 
+        this.game = new this.props.game({
+            gameWidth: this.gameWidth,
+            gameHeight: this.gameHeight,
+            canvas: canvas,
+            ...this.props
+        });
+
         this.ctx = canvas.getContext('2d');
 
         // Event listeners, for ergonomics and cheat prevention
+
         window.addEventListener('keydown', e => {
-            if(preventScrollingKeys.indexOf(e.code) > -1 || preventScrollingKeys.indexOf(e.keyCode) > -1) e.preventDefault() || window.event.preventDefault()
+            if (e.code === 'KeyF') this.toggleFullScreen();
+            else this.preventScroll(e);
         }, false);
 
         window.addEventListener('blur', () => {
@@ -77,9 +97,21 @@ export default class GameWithCanvas extends React.Component {
 
     componentWillUnmount() {
         this.mounted = false;
+        window.removeEventListener('keydown', this.preventScroll)
     }
 
     render() {
-        return <canvas id="game-canvas" className="game-canvas mx-auto mt-4" width={this.gameWidth} height={this.gameHeight} />
+        return <div id="game-container" className="game-container mx-auto" style={{width: this.gameWidth, height: this.gameHeight}}>
+
+            <div className="inner-container" style={{width: this.gameWidth}}>
+                <canvas id="game-canvas" className="game-canvas mx-auto" width={this.gameWidth} height={this.gameHeight} />
+
+                <div className="bottom-ui mx-auto" style={{width: this.gameWidth}}>
+                    <Row className="float-end">
+                        <Col><img src={FullscreenButton} className="toggle-fullscreen-button" alt="Toggle Fullscreen" onClick={this.toggleFullScreen} /></Col>
+                    </Row>
+                </div>
+            </div>
+        </div>
     }
 }

@@ -25,7 +25,9 @@ export default class Player {
         this.size = 48;
         this.collisionRadius = 48;
 
-        this.imageSrc = document.getElementById('assets/eirik');
+        this.imageSrc = document.createElement('img');
+        this.imageSrc.setAttribute('src', this.game.props.assets.img.eirik);
+        
         this.imageSizeOffset = 56;
     }
 
