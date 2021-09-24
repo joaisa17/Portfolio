@@ -150,18 +150,21 @@ export default class Enemies {
 
         this.enemies = [];
 
+        this.screenArea = this.game.props.gameWidth * this.game.props.gameHeight;
+
         // Chances: x/100
-        this.minChance = 0.025;
-        this.maxChance = 4;
+        this.minChance = 0.04;
+        this.maxChance = 5;
 
         this.spawnRate = 0.8;
     }
 
     getSpawnChance() {
         let score = this.game.scoreFloat;
+        let screenAreaFloat = this.screenArea / Math.pow(10, 6.5);
 
         return clamp(
-            Math.random() * (this.spawnRate / 100) + Math.pow(score, 1.2) / 500 - Math.pow(this.enemies.length, 1.5) / 50,
+            this.spawnRate / 100 + Math.pow(score, 1 + screenAreaFloat) / 500 - Math.pow(this.enemies.length, 1.5) / 50,
             this.minChance,
             this.maxChance
         );

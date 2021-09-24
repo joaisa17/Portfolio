@@ -9,6 +9,8 @@ export default class InputHandler {
             moveLeft: ['KeyA', 'ArrowLeft'],
             moveRight: ['KeyD', 'ArrowRight'],
 
+            sprint: ['ShiftLeft', 'ShiftRight'],
+
             restart: 'KeyR',
             pause: 'Space',
         }
@@ -42,6 +44,8 @@ export default class InputHandler {
         else if (this.keyIsKeyBind(code, this.keyBinds.moveLeft)) this.plr.move('left');
         else if (this.keyIsKeyBind(code, this.keyBinds.moveRight)) this.plr.move('right');
 
+        else if (this.keyIsKeyBind(code, this.keyBinds.sprint)) this.plr.setSprint(true);
+
         else if (this.keyIsKeyBind(code, this.keyBinds.restart)) {
             if (this.game.state === 'gameover') this.game.restart();
             else if (this.game.state === 'running' && this.game.props.devmode) this.game.gameOver();
@@ -55,5 +59,7 @@ export default class InputHandler {
         else if (this.keyIsKeyBind(code, this.keyBinds.moveDown)) this.plr.stopMove('down');
         else if (this.keyIsKeyBind(code, this.keyBinds.moveLeft)) this.plr.stopMove('left');
         else if (this.keyIsKeyBind(code, this.keyBinds.moveRight)) this.plr.stopMove('right');
+
+        else if (this.keyIsKeyBind(code, this.keyBinds.sprint)) this.plr.setSprint(false);
     }
 }

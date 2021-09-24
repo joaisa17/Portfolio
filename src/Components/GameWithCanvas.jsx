@@ -24,8 +24,8 @@ export default class GameWithCanvas extends React.Component {
     constructor(props) {
         super(props);
 
-        this.gameWidth = 800;
-        this.gameHeight = 800;
+        this.gameWidth = Math.max(800, window.screen.availWidth);
+        this.gameHeight = Math.max(800, window.screen.availHeight);
 
         this.game = undefined;
 
@@ -105,7 +105,7 @@ export default class GameWithCanvas extends React.Component {
         return <div id="game-container" className="game-container mx-auto" style={{width: this.gameWidth, height: this.gameHeight}}>
 
             <div className="inner-container">
-                <canvas id="game-canvas" className="game-canvas mx-auto" width={this.gameWidth} height={this.gameHeight} />
+                <canvas id="game-canvas" className="game-canvas" width={this.gameWidth} height={this.gameHeight} />
 
                 <div className="bottom-ui">
                     <Row className="float-end">
