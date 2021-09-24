@@ -10,6 +10,9 @@ export default class Dev {
         ctx.fillStyle = 'white';
         ctx.font = 'bold 20px arial';
         ctx.fillText(`Enemy spawn time: ${spawnTime}`, 20, 50);
+
+        ctx.textAlign = 'center';
+        ctx.fillText(`A: ${this.game.player.headingAngle}`, this.game.player.pos.x, this.game.player.pos.y - 60);
     }
 
     drawObjectHitbox(ctx, obj) {

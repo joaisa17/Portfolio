@@ -22,8 +22,6 @@
     --footer-height: 500px;
 
     --content-min-height: calc(100vh - var(--header-height));
-
-    scroll-behavior: smooth;
 }
 
 body {
@@ -37,6 +35,8 @@ body {
 #main {
     position: relative;
     overflow-x: hidden;
+
+    scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar {
