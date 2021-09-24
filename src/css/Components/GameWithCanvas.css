@@ -1,20 +1,12 @@
 .game-canvas {
     background-color: var(--dcol2);
 
-    width: auto;
+    width: 100%;
     height: 100%;
 
     display: block;
 
-    position: relative;
-
     z-index: 1;
-}
-
-.inner-container {
-    height: 100%;
-
-    position: relative;
 }
 
 .game-assets {
@@ -24,7 +16,9 @@
 }
 
 .game-container {
-    transform: scale(0.85) translateY(-6%);
+    position: relative;
+
+    transform: scale(0.75) translateY(-12%);
 }
 
 .game-container:fullscreen .bottom-ui {

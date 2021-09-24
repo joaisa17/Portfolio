@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Page, VerticallyCenteredDiv, Background } from '../Components';
+import { Page, VerticallyCenteredDiv, Background } from '@Components';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
 export default function Home() {
     return <Page title="Home">
         <div className="background-image" />
-        <Background variant="lines" color="rgba(40, 20, 255, .65)" className="test" />
+        <Background variant="lines" color="rgba(40, 200, 255, .5)" />
         
         <div className="title-container">
             <VerticallyCenteredDiv className="text-center" style={{marginTop: '-50px'}}>

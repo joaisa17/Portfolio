@@ -23,7 +23,6 @@
 
     --content-min-height: calc(100vh - var(--header-height));
 
-    overflow-x: hidden;
     scroll-behavior: smooth;
 }
 
@@ -33,6 +32,11 @@ body {
 
     background-color: var(--dcol1);
     color: var(--text-light);
+}
+
+#main {
+    position: relative;
+    overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {

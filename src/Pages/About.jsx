@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Page } from '../Components'
+import { Page } from '@Components'
 
 export default function About() {
     return <Page title="About Me">

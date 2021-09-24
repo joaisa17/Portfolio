@@ -3,7 +3,17 @@ export default class Dev {
         this.game = game;
     }
 
+    running(ctx) {
+        let spawnTime = Math.floor(this.game.enemyHandler.getSpawnTime());
+
+        ctx.textAlign = 'left';
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 20px arial';
+        ctx.fillText(`Enemy spawn time: ${spawnTime}`, 20, 50);
+    }
+
     drawObjectHitbox(ctx, obj) {
+        if (obj.collisionRadius <= 0) return;
         ctx.beginPath();
 
         ctx.arc(obj.pos.x, obj.pos.y, obj.collisionRadius, 0, 2*Math.PI, false);
@@ -25,9 +35,15 @@ export default class Dev {
             ctx.fillStyle = 'white'
             ctx.textAlign = 'center'
             ctx.fillText(
-                collisionDistance,
+                `D: ${collisionDistance}`,
                 enemy.pos.x,
                 enemy.pos.y - 40);
+            
+            ctx.fillText(
+                `A: ${Math.floor(enemy.headingAngle)} / ${Math.floor(enemy.getFullHomingAngle())}`,
+                enemy.pos.x,
+                enemy.pos.y - 60
+            )
         })
     }
 }

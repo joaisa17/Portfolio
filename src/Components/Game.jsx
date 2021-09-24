@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../css/Components/Game.css';
+import '@css/Components/Game.css';
 
 import { Link } from 'react-router-dom';
 import { Col, Card } from 'react-bootstrap';

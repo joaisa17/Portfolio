@@ -2,10 +2,7 @@ import React, { useEffect } from 'react';
 
 import { Helmet } from 'react-helmet';
 
-import Header from './Header';
-import Footer from './Footer';
-
-import '../css/Components/Page.css';
+import '@css/Components/Page.css';
 
 export default function Page(props) {
 
@@ -33,8 +30,6 @@ export default function Page(props) {
             <title>{props.title ? `${props.title} | J.I` : 'Joakim Isaksen'}</title>
         </Helmet>
 
-        {!props.noheader ? <Header title={props.title} /> : null}
         <div className="content" style={props.style}>{props.children}</div>
-        {!props.nofooter ? <Footer /> : null}
     </React.Fragment>
 }

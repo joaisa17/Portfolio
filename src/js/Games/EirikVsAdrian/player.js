@@ -24,7 +24,7 @@ export default class Player {
         this.sprintMultiplier = 2;
 
         this.sprintRegen = true;
-        this.sprintRegenCooldown = 1000;
+        this.sprintRegenCooldown = 750;
         this.sprintRegenTimeout = undefined;
         
         this.stamina = 100;
@@ -67,6 +67,7 @@ export default class Player {
     }
 
     reset() {
+        this.stamina = 100;
         this.pos = {
             x: this.gw / 2,
             y: this.gh / 2

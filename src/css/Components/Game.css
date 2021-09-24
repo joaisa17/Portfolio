@@ -1,7 +1,7 @@
 .game {
     width: 200px;
 
-    background-color: var(--dcol3);
+    background-color: var(--dcol3) !important;
 
     padding: 10px;
     border-radius: 12px;

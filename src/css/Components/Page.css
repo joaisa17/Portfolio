@@ -2,16 +2,20 @@
     min-height: var(--content-min-height);
 }
 
-.background-image {
+.background-image,
+.background-canvas {
     position: absolute;
     top: 0;
+    left: 0;
 
     width: 100%;
     height: 100vh;
 
     z-index: -1;
+}
 
-    background-image: url('../../media/jpg/Joakim.jpg');
+.background-image {
+    background-image: url('@Media/jpg/Joakim.jpg');
     background-size: cover;
     background-position: bottom;
 

@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-import { SocialLink, DiscordEmbed } from '../Components';
+import { SocialLink, DiscordEmbed } from '@Components';
 import { Container, Row, Col } from 'react-bootstrap';
 
-import '../css/Components/Footer.css';
+import '@css/Components/Footer.css';
 
-import * as svg from '../media/svg';
+import * as svg from '@Media/svg';
 
 export default class Footer extends React.Component {
     render() {
@@ -26,6 +26,7 @@ export default class Footer extends React.Component {
                             <Row className="link-title">Pages</Row>
                             <Row><Link to="/">Home</Link></Row>
                             <Row><Link to="/about">About Me</Link></Row>
+                            <Row><Link to="/games">My games</Link></Row>
                         </Col>
 
                         <Col id="contact">
@@ -54,7 +55,7 @@ export default class Footer extends React.Component {
 
             <div className="discord-embed">
                 <h3>My Discord Server:</h3>
-                <DiscordEmbed width="400" height="400" />
+                <DiscordEmbed width="90%" height="400" />
             </div>
 
         </div>

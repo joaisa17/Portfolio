@@ -30,6 +30,10 @@
     margin-left: 8px;
 }
 
+.header .nav-links.collapse.show {
+    padding-bottom: 10px;
+}
+
 .header .nav-links a {
     text-transform: capitalize;
 

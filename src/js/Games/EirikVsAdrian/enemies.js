@@ -2,58 +2,56 @@ function clamp(num, min, max) {
     return Math.min(Math.max(num, min), max);
 }
 
+function translate(angle) {
+    return {
+        x: Math.sin(angle / 180 * Math.PI),
+        y: -Math.cos(angle / 180 * Math.PI)
+    }
+}
+
 class Enemy {
     constructor(game) {
         this.game = game;
 
+        this.removing = false;
         this.toRemove = false;
+        this.removalMultiplier = 0.5;
 
         this.gw = this.game.props.gameWidth;
         this.gh = this.game.props.gameHeight;
 
         this.minSpeed = 10;
+        this.maxSpeed = 100;
+
         this.speedMultiplier = 0.8;
 
         this.maxHomingSpeed = 10;
-        this.homingMultiplier = 1.5;
+        this.homingMultiplier = 2.5;
 
-        this.size = 56;
+        this.size = 40;
         this.collisionRadius = 40;
 
-        this.imageSizeOffset = 28;
+        this.imageSizeOffset = 36;
         
         this.imageSrc = document.createElement('img');
         this.imageSrc.setAttribute('src', this.game.props.assets.img.adrian);
 
-        this.originFace = Math.max(
-            Math.floor(Math.random() * 4 + 0.5),
-            1
-        );
+        this.headingAngle = Math.random() * 360;
+        this.translation = translate(this.headingAngle);
+
+        this.spawnDistance = Math.max(this.gw / 2, this.gh / 2) + 200;
 
         this.pos = {
-            x: 0,
-            y: 0
+            x: this.gw / 2 - this.spawnDistance * this.translation.x,
+            y: this.gh / 2 - this.spawnDistance * this.translation.y
         }
 
-        this.pos = (
-            this.originFace <= 2 ? { // Top / Bottom
-                x: Math.random() * this.gw,
-                y: this.originFace === 1 ? -this.imageSizeOffset * 2 : this.gh + this.imageSizeOffset * 2
-            } : { // Left / Right
-                x: this.originFace === 3 ? -this.imageSizeOffset * 2 : this.gw + this.imageSizeOffset * 2,
-                y: Math.random() * this.gh
-            }
-        );
+        this.vel = {
+            x: Math.max(Math.random() * this.maxSpeed, this.minSpeed) * this.translation.x,
+            y: Math.max(Math.random() * this.maxSpeed, this.minSpeed) * this.translation.y
+        }
 
-        this.vel = (
-            this.originFace <= 2 ? { // Top / Bottom
-                x: Math.random() * this.gw / 30,
-                y: this.originFace === 1 ? Math.random() * this.gh / 10 + this.minSpeed : -Math.random() * this.gh / 10 - this.minSpeed
-            } : { // Left / Right
-                x: this.originFace === 3 ? Math.random() * this.gw / 10 + this.minSpeed : -Math.random() * this.gw / 10 - this.minSpeed,
-                y: Math.random() * this.gh / 30
-            }
-        );
+        setTimeout(() => {this.removing = true}, Math.random() * 3000 + 2000);
     }
 
     distanceFromPlayer() {
@@ -69,49 +67,64 @@ class Enemy {
         return Math.abs(this.distanceFromPlayer()) <= this.collisionRadius + this.game.player.collisionRadius;
     }
 
-    getHomingNumber(playerAxisPos, enemyAxisPos) {
-        let d = playerAxisPos - enemyAxisPos;
+    getHomingNumber() {
+        let d = this.distanceFromPlayer();
 
-        return Math.min((d * Math.pow(this.game.scoreFloat, 1.1)) * (this.homingMultiplier / 100000), this.maxHomingSpeed);
+        return Math.min((d * Math.pow(this.game.scoreFloat, 1.09)) * (this.homingMultiplier / 100000), this.maxHomingSpeed);
+    }
+
+    getFullHomingAngle() {
+        const plrPos = this.game.player.pos;
+        return 90 + Math.atan2(
+            plrPos.y - this.pos.y,
+            plrPos.x - this.pos.x
+        ) * 180 / Math.PI
     }
 
     update(dt) {
         this.pos.x += (this.vel.x * dt / 100) * this.speedMultiplier;
         this.pos.y += (this.vel.y * dt / 100) * this.speedMultiplier;
 
-        let plrPos = this.game.player.pos
+        const homingTranslation = translate(this.getFullHomingAngle());
+        
+        this.vel.x += homingTranslation.x * this.getHomingNumber();
+        this.vel.y += homingTranslation.y * this.getHomingNumber();
 
-        switch(this.originFace) {
-            
-            case 1:
-                this.vel.x += this.getHomingNumber(plrPos.x, this.pos.x);
-                if (this.pos.y - this.imageSizeOffset * 2 > this.gh) this.toRemove = true;
-            break;
-
-            case 2:
-                this.vel.x += this.getHomingNumber(plrPos.x, this.pos.x);
-                if (this.pos.y + this.imageSizeOffset * 2 < 0) this.toRemove = true;
-            break;
-
-            case 3:
-                this.vel.y += this.getHomingNumber(plrPos.y, this.pos.y);
-                if (this.pos.x - this.imageSizeOffset * 2 > this.gw) this.toRemove = true;
-            break;
-
-            case 4:
-                this.vel.y += this.getHomingNumber(plrPos.y, this.pos.y);
-                if (this.pos.x + this.imageSizeOffset * 2 < 0) this.toRemove = true;
-            break;
-
-            default: break;
+        if (this.detectCollision()) {
+            if (!this.game.props.devmode) this.game.gameOver();
+            else this.game.soundHandler.death.play();
         }
 
-        if (this.detectCollision() && !this.game.props.devmode) {
-            this.game.gameOver();
+        if (this.removing) {
+            const toSubtract = dt / (this.size + 0.01) * this.removalMultiplier;
+            this.size -= toSubtract;
+            this.imageSizeOffset = Math.max(this.imageSizeOffset - toSubtract * 2, 0);
+            this.collisionRadius = Math.max(this.collisionRadius - toSubtract * 2, 1);
+
+            if (this.size + this.imageSizeOffset <= 0) {
+                this.toRemove = true;
+            }
         }
     }
 
     draw(ctx) {
+        // Draw helping line
+
+        let plrPos = this.game.player.pos;
+
+        ctx.lineWidth = clamp(
+            8 / Math.max(1 / 50, this.distanceFromPlayer() / 300),
+            0, this.size + this.imageSizeOffset
+        );
+
+        ctx.strokeStyle = `rgba(255, 100, 100, ${clamp(ctx.lineWidth / 60, 0, this.size + this.imageSizeOffset)})`;
+        
+        ctx.beginPath();
+        ctx.moveTo(plrPos.x, plrPos.y);
+        ctx.lineTo(this.pos.x, this.pos.y);
+        ctx.stroke();
+
+        // Draw enemy
         ctx.drawImage(
             this.imageSrc,
             this.pos.x - (this.size + this.imageSizeOffset) / 2,
@@ -119,28 +132,6 @@ class Enemy {
             this.size + this.imageSizeOffset,
             this.size + this.imageSizeOffset
         );
-
-        // Draw helping dots
-
-        let plrPos = this.game.player.pos;
-        let dx = plrPos.x - this.pos.x;
-        let dy = plrPos.y - this.pos.y;
-
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-
-        let dotSize = clamp(
-            8 / Math.max(1 / 50, this.distanceFromPlayer() / 200),
-            0,
-            20
-        );
-        
-        ctx.beginPath();
-        ctx.arc(
-            plrPos.x - dx / 2,
-            plrPos.y - dy / 2,
-            dotSize, 0, 2 * Math.PI
-        );
-        ctx.fill();
     }
 }
 
@@ -150,49 +141,56 @@ export default class Enemies {
 
         this.enemies = [];
 
+        this.spawnTimeout = undefined;
+        this.firstSpawned = false;
+
+        this.spawnTime = 0;
+
+        this.maxSpawnTime = 3000;
+        this.minSpawnTime = 250;
+
         this.screenArea = this.game.props.gameWidth * this.game.props.gameHeight;
-
-        // Chances: x/100
-        this.minChance = 0.04;
-        this.maxChance = 5;
-
-        this.spawnRate = 0.8;
     }
 
-    getSpawnChance() {
+    getSpawnTime() {
         let score = this.game.scoreFloat;
         let screenAreaFloat = this.screenArea / Math.pow(10, 6.5);
-
-        return clamp(
-            this.spawnRate / 100 + Math.pow(score, 1 + screenAreaFloat) / 500 - Math.pow(this.enemies.length, 1.5) / 50,
-            this.minChance,
-            this.maxChance
-        );
+        
+        return Math.max(
+            this.maxSpawnTime / (1 + Math.pow(score, 2) / 5000 + screenAreaFloat / 50000),
+            this.minSpawnTime
+        )
     }
 
     createEnemy() {
-        if (this.game.state !== 'running') return;
+        this.spawnTime = this.getSpawnTime();
 
-        setTimeout(() => {
-            this.enemies.push(new Enemy(this.game));
-            this.game.soundHandler.onEnemySpawn();
-        }, Math.random());
+        if (!this.game || this.game.state !== 'running') return;
+
+        this.enemies.push(new Enemy(this.game));
+        this.game.soundHandler.onEnemySpawn();
     }
 
     reset() {
+        this.firstSpawned = false;
         this.enemies = [];
-
-        this.createEnemy();
     }
 
     update(dt) {
+        this.spawnTime -= dt;
+        console.log(this.spawnTime);
+
+        if (this.spawnTime <= 0) {
+            this.createEnemy();
+        }
+
         this.enemies.forEach(enemy => {
             enemy.update(dt);
 
-            if (enemy.toRemove) this.enemies.splice(this.enemies.indexOf(enemy), 1);
+            if (enemy.toRemove) {
+                this.enemies.splice(this.enemies.indexOf(enemy), 1);
+            }
         });
-
-        if (Math.floor(Math.random() * 100) <= this.getSpawnChance()) this.createEnemy();
     }
 
     draw(ctx) {

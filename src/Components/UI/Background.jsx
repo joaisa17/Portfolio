@@ -75,16 +75,6 @@ export default class Background extends React.Component {
     }
 
     render() {
-        return <canvas id="background-canvas" {...this.rest} style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            zIndex: -1,
-
-            width: '100%',
-            height: '100%',
-
-            filter: 'blur(0.25vh)'
-        }} />
+        return <canvas id="background-canvas" className="background-canvas" {...this.rest} />
     }
 }

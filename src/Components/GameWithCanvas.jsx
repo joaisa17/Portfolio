@@ -3,7 +3,7 @@ import React from 'react'
 import '../css/Components/GameWithCanvas.css';
 
 import { Row, Col } from 'react-bootstrap';
-import { FullscreenButton } from '../media/svg/ui';
+import { FullscreenButton } from '@Media/svg/ui';
 
 const preventScrollingKeys = [
     'Space',
@@ -24,8 +24,8 @@ export default class GameWithCanvas extends React.Component {
     constructor(props) {
         super(props);
 
-        this.gameWidth = Math.max(800, window.screen.availWidth);
-        this.gameHeight = Math.max(800, window.screen.availHeight);
+        this.gameWidth = Math.max(800, window.screen.width);
+        this.gameHeight = Math.max(800, window.screen.height);
 
         this.game = undefined;
 
@@ -102,16 +102,13 @@ export default class GameWithCanvas extends React.Component {
     }
 
     render() {
-        return <div id="game-container" className="game-container mx-auto" style={{width: this.gameWidth, height: this.gameHeight}}>
+        return <div id="game-container" className="game-container">
+            <canvas id="game-canvas" className="game-canvas" width={this.gameWidth} height={this.gameHeight} />
 
-            <div className="inner-container">
-                <canvas id="game-canvas" className="game-canvas" width={this.gameWidth} height={this.gameHeight} />
-
-                <div className="bottom-ui">
-                    <Row className="float-end">
-                        <Col><img src={FullscreenButton} className="toggle-fullscreen-button" alt="Toggle Fullscreen" onClick={this.toggleFullScreen} /></Col>
-                    </Row>
-                </div>
+            <div className="bottom-ui">
+                <Row className="float-end">
+                    <Col><img src={FullscreenButton} className="toggle-fullscreen-button" alt="Toggle Fullscreen" onClick={this.toggleFullScreen} /></Col>
+                </Row>
             </div>
         </div>
     }

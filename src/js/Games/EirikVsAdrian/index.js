@@ -81,7 +81,7 @@ export default class Game {
         this.player.update(dt);
         this.enemyHandler.update(dt);
 
-        this.scoreFloat += dt / 1000 * (this.props.devmode ? 4 : 1);
+        this.scoreFloat += dt / 1000 * (this.props.devmode ? 1 : 1);
 
         if (this.score !== Math.floor(this.scoreFloat)) {
             this.score = Math.floor(this.scoreFloat);
@@ -98,6 +98,8 @@ export default class Game {
 
         if (this.dev) {
             this.dev.drawHitboxes(ctx);
+
+            if (this.dev[this.state]) this.dev[this.state](ctx);
         }
 
         if (this.screens[this.state]) this.screens[this.state](ctx);

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Page } from '../Components';
+import { Page } from '@Components';
 
-import { ErrorCodes } from '../js/ErrorCodes';
+import { ErrorCodes } from '@js/ErrorCodes';
 
 export default function Error(props) {
 

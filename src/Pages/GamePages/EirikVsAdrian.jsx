@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Game from '../../js/Games/EirikVsAdrian';
-import { Page, GameWithCanvas } from '../../Components';
+import Game from '@js/Games/EirikVsAdrian';
+import { Page, GameWithCanvas } from '@Components';
 
-import { EirikVsAdrian as ImageAssets } from '../../media/png';
-import { EirikVsAdrian as AudioAssets } from '../../media/mp3';
-import { EirikVsAdrian as MusicAssets } from '../../media/wav';
+import { EirikVsAdrian as ImageAssets } from '@Media/png';
+import { EirikVsAdrian as AudioAssets } from '@Media/mp3';
+import { EirikVsAdrian as MusicAssets } from '@Media/wav';
 
 export default function EirikVsAdrian() {
     return <Page title="Eirik Vs. Adrian">

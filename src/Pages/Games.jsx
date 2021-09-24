@@ -1,9 +1,8 @@
 import React from 'react';
 
-import Page from '../Components/Page';
+import { Page, Game } from '@Components';
 
-import Game from '../Components/Game';
-import { EirikVsAdrian } from '../media/png';
+import { EirikVsAdrian } from '@Media/png';
 
 import { Container, Row } from 'react-bootstrap';
 
