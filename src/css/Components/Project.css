@@ -1,0 +1,30 @@
+.project {
+    width: 200px;
+
+    background-color: var(--dcol3) !important;
+
+    padding: 10px;
+    border-radius: 12px;
+
+    text-transform: capitalize;
+    cursor: pointer;
+
+    transition: all 0.125s ease-out;
+}
+
+.project:hover,
+.project:active {
+    transform: scale(1.025);
+    opacity: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.75);
+}
+
+.project > * {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.project > *:hover {
+    color: var(--text);
+}

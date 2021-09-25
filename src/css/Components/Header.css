@@ -3,6 +3,8 @@
 
     background-color: var(--dcol3);
     z-index: 5;
+
+    overflow-y: hidden;
 }
 
 .header > .home-btn {
@@ -30,7 +32,12 @@
     margin-left: 8px;
 }
 
+.header .nav-links.collapsing {
+    transition: all 0.2s ease-in;
+}
+
 .header .nav-links.collapse.show {
+    transition: padding-bottom 0.15s ease;
     padding-bottom: 10px;
 }
 

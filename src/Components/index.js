@@ -7,6 +7,7 @@ import Background from './UI/Background';
 import GameWithCanvas from './GameWithCanvas';
 
 import Game from './Game';
+import Project from './Project';
 import SocialLink from './SocialLink';
 import DiscordEmbed from './DiscordEmbed';
 
@@ -20,6 +21,7 @@ export {
     GameWithCanvas,
 
     Game,
+    Project,
     SocialLink,
     DiscordEmbed
 }
