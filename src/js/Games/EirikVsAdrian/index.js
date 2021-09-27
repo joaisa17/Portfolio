@@ -81,7 +81,7 @@ export default class Game {
         this.player.update(dt);
         this.enemyHandler.update(dt);
 
-        this.scoreFloat += dt / 1000 * (this.props.devmode ? 1 : 1);
+        this.scoreFloat += dt / 1000 * (this.props.devmode ? 8 : 1);
 
         if (this.score !== Math.floor(this.scoreFloat)) {
             this.score = Math.floor(this.scoreFloat);

@@ -5,7 +5,8 @@ import Projects from './Projects';
 
 import Error from './Error';
 
-import * as GamePages from './GamePages'
+import * as ProjectPages from './ProjectPages';
+import * as GamePages from './GamePages';
 
 export {
     Home,
@@ -15,5 +16,6 @@ export {
 
     Error,
 
+    ProjectPages,
     GamePages
 };

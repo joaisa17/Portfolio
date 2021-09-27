@@ -12,6 +12,9 @@ export default function Error(props) {
     const errorDesc = i ? i : 'An unexpected error has occurred';
 
     return <Page title={`ERROR ${errorCode}`}>
-        Error : {errorDesc}
+        <div className="text-center mt-4">
+            <h1>Error {errorCode}</h1>
+            <h4 className="mt-4">{errorDesc}</h4>
+        </div>
     </Page>
 }

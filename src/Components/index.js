@@ -2,14 +2,17 @@ import Header from './Header';
 import Footer from './Footer';
 import Page from './Page';
 
-import VerticallyCenteredDiv from './UI/VerticallyCenteredDiv';
-import Background from './UI/Background';
+import VerticallyCenteredDiv from './VerticallyCenteredDiv';
+import Background from './Background';
 import GameWithCanvas from './GameWithCanvas';
 
-import Game from './Game';
 import Project from './Project';
+import Song from './Song';
 import SocialLink from './SocialLink';
 import DiscordEmbed from './DiscordEmbed';
+
+import Title from './Title';
+import Introduction from './Introduction';
 
 export {
     Header,
@@ -20,8 +23,11 @@ export {
     Background,
     GameWithCanvas,
 
-    Game,
     Project,
+    Song,
     SocialLink,
-    DiscordEmbed
+    DiscordEmbed,
+
+    Title,
+    Introduction
 }

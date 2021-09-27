@@ -26,6 +26,7 @@ export default class Footer extends React.Component {
                             <Row className="link-title">Pages</Row>
                             <Row><Link to="/">Home</Link></Row>
                             <Row><Link to="/about">About Me</Link></Row>
+                            <Row><Link to="/projects">My projects</Link></Row>
                             <Row><Link to="/games">My games</Link></Row>
                         </Col>
 

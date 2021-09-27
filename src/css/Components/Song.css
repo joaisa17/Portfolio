@@ -1,0 +1,41 @@
+.song {
+    background-color: var(--dcol3);
+
+    margin-bottom: 10px;
+
+    height: auto;
+}
+
+.song * {
+    vertical-align: middle;
+}
+
+.song .media-controls {
+    display: grid;
+    grid-template-columns: 10% 5fr 10%;
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.song .slider {
+    width: 100%;
+    padding: 0;
+
+    margin-left: 16px;
+    margin-top: 6px;
+}
+
+.song .toggle-pause-button {
+    width: 32px;
+    height: auto;
+
+    cursor: pointer;
+}
+
+.song .toggle-repeat-button {
+    width: 32px;
+    height: auto;
+
+    cursor: pointer;
+}

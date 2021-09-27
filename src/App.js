@@ -9,8 +9,11 @@ export default function App() {
     <Redirect exact path="/home" to="/" />
 
     <Route exact path="/about" component={Pages.About} />
-    <Route exact path="/games" component={Pages.Games} />
+
     <Route exact path="/projects" component={Pages.Projects} />
+    <Route exact path="/projects/music" component={Pages.ProjectPages.Music} />
+
+    <Route exact path="/games" component={Pages.Games} />
     <Route exact path="/games/eirik-vs-adrian" component={Pages.GamePages.EirikVsAdrian} />
 
     <Route path="/error" component={Pages.Error} />

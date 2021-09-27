@@ -15,7 +15,7 @@
 }
 
 .background-image {
-    background-image: url('@Media/jpg/Joakim.jpg');
+    background-image: url('../../Media/jpg/Joakim.jpg');
     background-size: cover;
     background-position: bottom;
 

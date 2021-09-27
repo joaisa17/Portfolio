@@ -7,8 +7,17 @@ import '@css/Components/Page.css';
 export default function Page(props) {
 
     useEffect(() => {
-        window.scrollTo(0, 0)
-        
+        let header = document.querySelector('.header');
+        let footer = document.querySelector('.footer');
+
+        if (props.noheader) header.classList.add('hide');
+        else header.classList.remove('hide');;
+
+        if (props.nofooter) footer.classList.add('hide');
+        else footer.classList.remove('hide');
+
+        window.scrollTo(0, 0);
+
         const hash = window.location.hash;
 
         if(hash === '#contact') {

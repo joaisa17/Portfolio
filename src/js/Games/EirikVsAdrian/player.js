@@ -102,7 +102,7 @@ export default class Player {
     }
 
     update(dt) {
-        if (this.sprint) {
+        if (this.sprint && this.moving) {
             this.sprintRegen = false;
 
             this.stamina = Math.max(this.stamina - 1 * dt / 10, 0);
@@ -150,8 +150,8 @@ export default class Player {
             this.vel.y = clamp(this.vel.y + (this.accelerationSpeed * dt / 100) * translation.y * (this.sprint && this.stamina > 0 ? this.sprintMultiplier : 1), -this.movementSpeed, this.movementSpeed);
         }
 
-        if (!this.left && !this.right) this.vel.x += 0 - this.vel.x / 100 * this.brakeMultiplier;
-        if (!this.up && !this.down) this.vel.y += 0 - this.vel.y / 100 * this.brakeMultiplier;
+        if (this.left === this.right) this.vel.x += 0 - this.vel.x / 100 * this.brakeMultiplier;
+        if (this.up === this.down) this.vel.y += 0 - this.vel.y / 100 * this.brakeMultiplier;
 
         this.pos.x += (this.vel.x * dt / 100) * (this.sprint && this.stamina > 0 ? this.sprintMultiplier : 1);
         this.pos.y += (this.vel.y * dt / 100) * (this.sprint && this.stamina > 0 ? this.sprintMultiplier : 1);
