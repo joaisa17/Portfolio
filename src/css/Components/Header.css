@@ -34,19 +34,19 @@
 
 .header .nav-links {
     width: 100%;
+    margin-top: 0.95%;
+    margin-bottom: 0.1%;
 
     white-space: nowrap;
     overflow-x: scroll;
 }
 
 .header .nav-links.collapsing {
-    transition: all 0.2s ease-in;
+    transition: all 0.2s ease;
 }
 
 .header .nav-links.collapse.show {
-    transition: all 0.15s ease;
-    padding-top: 8px;
-    padding-bottom: 10px;
+    padding-right: 10px;
 }
 
 .header .nav-links a {
@@ -55,10 +55,7 @@
     text-decoration: none;
     color: var(--text-light);
 
-    margin-top: 10px;
     margin-left: 16px;
-
-    transition: all 0.1s ease;
 }
 
 .header .nav-links a:hover,

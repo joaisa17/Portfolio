@@ -10,8 +10,9 @@ function translate(angle) {
 }
 
 class Enemy {
-    constructor(game) {
+    constructor(game, props) {
         this.game = game;
+        this.props = props
 
         this.removing = false;
         this.toRemove = false;
@@ -142,7 +143,6 @@ export default class Enemies {
         this.enemies = [];
 
         this.spawnTimeout = undefined;
-        this.firstSpawned = false;
 
         this.spawnTime = 0;
 
@@ -172,7 +172,7 @@ export default class Enemies {
     }
 
     reset() {
-        this.firstSpawned = false;
+        this.spawnTime = 0;
         this.enemies = [];
     }
 

@@ -3,7 +3,16 @@
 
     margin-bottom: 10px;
 
+    width: auto;
     height: auto;
+
+    border-radius: 1rem;
+    padding: 10px !important;
+
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
 }
 
 .song * {
@@ -12,30 +21,43 @@
 
 .song .media-controls {
     display: grid;
-    grid-template-columns: 10% 5fr 10%;
+    grid-template-columns: 32px calc(100% - 64px) 32px;
 
-    padding-top: 5px;
-    padding-bottom: 5px;
+    margin: 6px 0 4px 0;
 }
 
-.song .slider {
+.song .time-slider {
     width: 100%;
-    padding: 0;
 
-    margin-left: 16px;
     margin-top: 6px;
 }
 
-.song .toggle-pause-button {
-    width: 32px;
-    height: auto;
+.song .toggle-pause-button,
+.song .toggle-repeat-button {
+    width: auto;
+    height: 100%;
+    max-height: 100%;
+
+    padding: 0 0 0 0;
 
     cursor: pointer;
 }
 
-.song .toggle-repeat-button {
-    width: 32px;
-    height: auto;
+.song .toggle-pause-button > *,
+.song .toggle-repeat-button > * {
+    max-height: 100%;
+}
 
-    cursor: pointer;
+.song .bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+}
+
+.song .volume-controls {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.song .volume-slider {
+    width: 100%;
 }

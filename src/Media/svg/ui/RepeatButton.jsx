@@ -1,9 +1,18 @@
 import React from 'react'
 
-export default function RepeatButton({loop, ...props}) {
+const disabledStyle = {
+    transition: 'transform 0.25s ease-out',
+    opacity: '50%'
+}
 
-    return <svg {...props} version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 473.68 473.68">
-        <path fill={loop ? '#fff' : 'rgba(255, 255, 255, 0.5)'} d="M473.68,236.844C473.68,106.025,367.644,0,236.844,0C106.036,0,0,106.025,0,236.844 C0,367.636,106.036,473.68,236.844,473.68C367.644,473.68,473.68,367.636,473.68,236.844z"/>
+const enabledStyle = {
+    transition: 'transform 0.25s ease-out',
+    transform: 'rotate(180deg)'
+}
+
+export default function RepeatButton({loop, ...props}) {
+    return <svg {...props} style={loop ? enabledStyle : disabledStyle} version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 473.68 473.68">
+        <path fill='#fff' d="M473.68,236.844C473.68,106.025,367.644,0,236.844,0C106.036,0,0,106.025,0,236.844 C0,367.636,106.036,473.68,236.844,473.68C367.644,473.68,473.68,367.636,473.68,236.844z"/>
         <g>
             <path fill="var(--dcol3)" d="M331.497,306.965c-12.012,14.824-29.341,11.51-46.42,11.51c-24.543,0-49.079,0-73.622,0
                 c-15.164,0-30.324,0-45.488,0c-21.383,0-23.922-20.018-23.687-38.394c9.682,0,19.367,0,29.049,0c2.58,0,4.409-1.159,5.531-2.786
