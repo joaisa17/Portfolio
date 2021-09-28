@@ -19,12 +19,13 @@ export default class Song extends React.Component {
             volume: 0.5,
             mute: false,
 
-            loop: false
+            loop: props.loop || false
         }
 
         this.sound = new Howl({
             src: props.src,
             volume: this.state.volume,
+            loop: this.state.loop,
 
             onend: () => {
                 if (!this.state.loop) {
