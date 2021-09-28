@@ -5,6 +5,8 @@ import Projects from './Projects';
 
 import Error from './Error';
 
+import ClickRoll from './ClickRoll';
+
 import * as ProjectPages from './ProjectPages';
 import * as GamePages from './GamePages';
 
@@ -15,6 +17,8 @@ export {
     Projects,
 
     Error,
+
+    ClickRoll,
 
     ProjectPages,
     GamePages

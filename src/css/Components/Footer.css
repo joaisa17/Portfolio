@@ -11,7 +11,7 @@
 
     grid-template-columns: 1.5fr 1fr;
 
-    overflow-y: hidden;
+    overflow: hidden;
 
     transition: height 0.5s ease;
 }

@@ -1,5 +1,7 @@
 .content {
     min-height: var(--content-min-height);
+
+    position: relative;
 }
 
 .background-image,

@@ -1,11 +1,11 @@
 import React from 'react'
 
 import { Howl } from 'howler';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 import '@css/Components/Song.css';
 
-import { PlayButton, PauseButton, RepeatButton } from 'src/Media/svg/ui';
+import { PlayButton, PauseButton, RepeatButton, AudioUnmuted, AudioMuted } from 'src/Media/svg/ui';
 
 export default class Song extends React.Component {
     constructor(props) {
@@ -14,6 +14,8 @@ export default class Song extends React.Component {
         this.state = {
             playing: false,
             timePosition: 0,
+
+            minVolume: 0.001,
             volume: 0.5,
             mute: false,
 
@@ -47,11 +49,17 @@ export default class Song extends React.Component {
     }
 
     setVolume(v) {
+        this.sound.mute(v < this.state.minVolume);
+
         this.sound.volume(v);
-        this.setState({volume: v});
+        this.setState({
+            volume: v,
+            mute: v < this.state.minVolume
+        });
     }
 
     setMute(v) {
+        if (this.sound.volume() < this.state.minVolume) return;
         this.sound.mute(v);
         this.setState({mute: v});
     }
@@ -96,8 +104,8 @@ export default class Song extends React.Component {
         return <Row className="song">
 
             <Row className="media-controls">
-                <Col className="toggle-pause-button">
-                    <img height="32px" src={this.state.playing ? PauseButton : PlayButton} onClick={this.togglePause} alt="Play/Pause" />
+                <Col className={`toggle-pause-button ${this.state.playing ? 'playing' : 'paused'}`}>
+                    <img height="32" src={this.state.playing ? PauseButton : PlayButton} onClick={this.togglePause} alt="Play/Pause" />
                 </Col>
 
                 <Col>
@@ -131,11 +139,13 @@ export default class Song extends React.Component {
 
                 <Col>
                     <Row className="volume-controls">
-                        <Col>
-                            <Button
-                                className="toggle-mute-button"
+                        <Col className="toggle-mute-button">
+                            <img
+                                alt="Mute/Unmute"
+                                height="100%"
+                                src={this.state.mute ? AudioMuted : AudioUnmuted}
                                 onClick={() => {this.setMute(!this.state.mute)}}
-                            >{this.state.mute ? 'Unmute' : 'Mute'}</Button>
+                            />
                         </Col>
 
                         <Col>

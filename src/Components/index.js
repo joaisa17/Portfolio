@@ -14,6 +14,8 @@ import DiscordEmbed from './DiscordEmbed';
 import Title from './Title';
 import Introduction from './Introduction';
 
+import LoremIpsum from './LoremIpsum';
+
 export {
     Header,
     Footer,
@@ -29,5 +31,7 @@ export {
     DiscordEmbed,
 
     Title,
-    Introduction
+    Introduction,
+
+    LoremIpsum
 }

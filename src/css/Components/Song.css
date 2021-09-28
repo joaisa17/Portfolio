@@ -32,19 +32,27 @@
     margin-top: 2px;
 }
 
+.song .toggle-pause-button.playing {
+    transform: rotate(180deg);
+}
+
 .song .toggle-pause-button,
-.song .toggle-repeat-button {
+.song .toggle-repeat-button,
+.song .toggle-mute-button {
     width: auto;
     height: 100%;
     max-height: 100%;
 
     padding: 0 0 0 0;
 
+    transition: transform 0.2s ease-out;
+
     cursor: pointer;
 }
 
 .song .toggle-pause-button > *,
-.song .toggle-repeat-button > * {
+.song .toggle-repeat-button > *,
+.song .toggle-mute-button > * {
     max-height: 100%;
 }
 
@@ -55,7 +63,7 @@
 
 .song .volume-controls {
     display: grid;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: auto 85.75% 32px;
 }
 
 .song .volume-slider {
