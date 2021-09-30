@@ -30,7 +30,7 @@ export default class Player {
 
         this.moving = false;
         this.movementSpeed = 64;
-        this.accelerationSpeed = this.movementSpeed / 1.5;
+        this.accelerationSpeed = this.movementSpeed * 0.9;
         this.brakeMultiplier = 10;
 
         this.elasticity = 80;

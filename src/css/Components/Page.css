@@ -4,6 +4,19 @@
     position: relative;
 }
 
+.content .link {
+    color: var(--text-light);
+    opacity: 75%;
+
+    transition: opacity 0.1s ease;
+}
+
+.content a:hover,
+.content a:active {
+    color: var(--text-light);
+    opacity: 50%;
+}
+
 .background-image,
 .background-canvas {
     position: absolute;

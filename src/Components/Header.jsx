@@ -19,7 +19,6 @@ export default function Header() {
                 <Link to="/projects">My projects</Link>
                 <Link to="/games">My games</Link>
                 <a href="#contact">Contact</a>
-                <Link to="/secret">Don't click!</Link>
             </Nav>
         </Navbar.Collapse>
     </Navbar>

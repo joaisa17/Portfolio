@@ -84,6 +84,7 @@ export default class GameWithCanvas extends React.Component {
         // Event listeners, for ergonomics and cheat prevention
 
         window.addEventListener('keydown', e => {
+            if (!this.mounted) return;
             if (e.code === 'KeyF') this.toggleFullScreen();
             else this.preventScroll(e);
         }, false);

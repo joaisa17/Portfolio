@@ -39,6 +39,7 @@ export default class InputHandler {
     }
 
     onKeyDown(code) {
+        if (this.game.terminated) return;
         if (this.keyIsKeyBind(code, this.keyBinds.moveUp)) this.plr.move('up');
         else if (this.keyIsKeyBind(code, this.keyBinds.moveDown)) this.plr.move('down');
         else if (this.keyIsKeyBind(code, this.keyBinds.moveLeft)) this.plr.move('left');
@@ -55,6 +56,7 @@ export default class InputHandler {
     }
 
     onKeyUp(code) {
+        if (this.game.terminated) return;
         if (this.keyIsKeyBind(code, this.keyBinds.moveUp)) this.plr.stopMove('up');
         else if (this.keyIsKeyBind(code, this.keyBinds.moveDown)) this.plr.stopMove('down');
         else if (this.keyIsKeyBind(code, this.keyBinds.moveLeft)) this.plr.stopMove('left');
