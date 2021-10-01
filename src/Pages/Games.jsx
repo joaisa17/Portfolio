@@ -20,6 +20,10 @@ export default function Games() {
                 <Game title="Eirik Vs. Adrian" thumbnail={EirikVsAdrian.Eirik} href="/games/eirik-vs-adrian">
                     This is one of my first web games
                 </Game>
+
+                <Game title="Eirik Vs. Adrian ONLINE" thumbnail={EirikVsAdrian.Eirik} href="/games/eirik-vs-adrian-online">
+                    This game is still under development
+                </Game>
             </Row>
         </Container>
     </Page>

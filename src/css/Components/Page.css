@@ -11,8 +11,8 @@
     transition: opacity 0.1s ease;
 }
 
-.content a:hover,
-.content a:active {
+.content .link:hover,
+.content .link:active {
     color: var(--text-light);
     opacity: 50%;
 }

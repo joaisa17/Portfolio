@@ -28,13 +28,13 @@ export default function About() {
                     in video games, development, and music production through digital software.
                 </p>
 
-                <p className="text-center py-5">
+                <div className="text-center py-5">
                     <p style={{fontWeight: 'bold'}}>
                         If you're hiring, and are looking for my CV, click the button below,
                         or click <a href={CvJoakimIsaksen} download>here</a>
                     </p>
                     <Button style={{fontSize: 'var(--size-big)'}} variant="outline-light" download href={CvJoakimIsaksen}>Download CV</Button>
-                </p>
+                </div>
 
                 <p className="pb-4">
                     When it comes to my competence in development, I'm highly experienced with

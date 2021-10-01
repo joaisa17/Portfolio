@@ -15,7 +15,9 @@ export default function App() {
 
     <Route exact path="/games" component={Pages.Games} />
     <Route exact path="/games/eirik-vs-adrian" component={Pages.GamePages.EirikVsAdrian} />
+    <Route exact path="/games/eirik-vs-adrian-online" component={Pages.GamePages.EirikVsAdrianOnline} />
 
+    {/* Haha funny */}
     <Route exact path="/clickroll" component={Pages.ClickRoll} />
     <Redirect exact path="/secret" to="/clickroll" />
 

@@ -17,8 +17,13 @@
 
 .game-container {
     position: relative;
+}
 
-    transform: scale(0.75) translateY(-12%);
+.game-container:not(:fullscreen) {
+    width: 75%;
+    height: auto;
+
+    margin: 10px auto 0 auto;
 }
 
 .game-container:fullscreen .bottom-ui {
