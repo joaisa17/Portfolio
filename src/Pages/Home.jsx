@@ -11,7 +11,7 @@ export default function Home() {
         
         <div className="title-container">
             <VerticallyCenteredDiv className="text-center">
-                <h1 style={{fontSize: 'calc(2vh + 30px', marginTop: '50px'}}>Joakim Isaksen</h1>
+                <h1 style={{fontSize: 'calc(2vh + 30px', marginTop: '-48px'}}>Joakim Isaksen</h1>
                 <br />
                 <Link to="/about">
                     <Button style={{fontSize: 'calc(1vh + 30px)'}} variant="outline-light" className="mx-auto mt-4">
