@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-
 import { Helmet } from 'react-helmet';
-
 import '@css/Components/Page.css';
 
 export default function Page(props) {
