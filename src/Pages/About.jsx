@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Page, Title, SocialLink } from '@Components';
+import { Page, Title, SocialLink, ExternalLink } from '@Components';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -15,10 +15,10 @@ import '@css/Pages/About.css';
 export default function About() {
     return <Page title="About Me">
         <ThreeScrollViewer src={JoakimCubeScene} />
-        <div className="mt-4">
+        <div className="mt-4 about-title">
             <Title>About Me</Title>
 
-            <h3 className="pt-2 pb-4 mx-auto" style={{
+            <h3 className="pt-2 pb-4 mx-auto about-content" style={{
                 width: 'calc(10vw + 600px)',
                 maxWidth: '84vw',
                 fontSize: 'var(--size-normal)',
@@ -37,7 +37,7 @@ export default function About() {
                 <div className="text-center py-5">
                     <p style={{fontWeight: 'bold'}}>
                         If you're hiring, and are looking for my CV, click the button below,
-                        or click <a href={CvJoakimIsaksen} download>here</a>
+                        or click <a href={CvJoakimIsaksen} className="link" download>here</a>
                     </p>
                     <Button style={{fontSize: 'var(--size-big)'}} variant="outline-light" download href={CvJoakimIsaksen}>Download CV</Button>
                 </div>
@@ -51,9 +51,10 @@ export default function About() {
                 </p>
 
                 <p className="pt-5">
-                    I also have a fair bit of experience using a variety of the Adobe programs,
+                    I also have a fair bit of experience using a variety of
+                    the <ExternalLink href="adobe.com">Adobe</ExternalLink> programs,
                     such as Photoshop, Premiere Pro and After Effects. I also know how to model
-                    3D objects in Blender, as well as make 3D animations. Here is a medium
+                    3D objects in <ExternalLink href="blender.org">Blender</ExternalLink>, as well as make 3D animations. Here is a medium
                     resolution animation render I made for a school assignment:
                 </p>
 
@@ -65,11 +66,13 @@ export default function About() {
                 />
 
                 <p className="pt-5">
-                    Other than my programming and video abilities, I'm also a fairly experienced
-                    music producer. I make music using the digital audio workstation <a
-                        className="link"
-                        target="external"
-                        href="https://image-line.com">FL Studio</a>.
+                    Yes, I also made the background scene
+                    myself, using Blender and <ExternalLink href="threejs.org">Three.js</ExternalLink>.
+                </p>
+
+                <p>
+                    Other than my programming and video abilities, I'm also a fairly experienced music producer.
+                    I make music using the digital audio workstation <ExternalLink href="image-line.com">FL Studio</ExternalLink>.
                     
                     All the songs I have in my <Link
                         className="link"

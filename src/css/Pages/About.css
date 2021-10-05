@@ -6,11 +6,21 @@
     height: auto;
 
     z-index: -1;
-
-    background-color: rgba(0, 200, 255, 0.5);
 }
 
 .three-viewer canvas {
     width: 100vw !important;
     height: auto !important;
+}
+
+.about-title {
+    text-shadow: 0 0 8px black;
+}
+
+.about-content {
+    background-color: rgba(0, 0, 0, 10%);
+    text-shadow: 0 0 4px black;
+
+    margin-bottom: calc(180vh + 100px);
+    padding: 10px;
 }

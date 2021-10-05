@@ -9,6 +9,7 @@ import GameWithCanvas from './GameWithCanvas';
 import Project from './Project';
 import Song from './Song';
 import SocialLink from './SocialLink';
+import ExternalLink from './ExternalLink';
 import DiscordEmbed from './DiscordEmbed';
 
 import Title from './Title';
@@ -28,6 +29,7 @@ export {
     Project,
     Song,
     SocialLink,
+    ExternalLink,
     DiscordEmbed,
 
     Title,
