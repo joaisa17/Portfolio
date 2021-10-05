@@ -14,6 +14,7 @@ import DiscordEmbed from './DiscordEmbed';
 
 import Title from './Title';
 import Introduction from './Introduction';
+import AnimatedText from './AnimatedText';
 
 import LoremIpsum from './LoremIpsum';
 
@@ -34,6 +35,7 @@ export {
 
     Title,
     Introduction,
+    AnimatedText,
 
     LoremIpsum
 }

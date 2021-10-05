@@ -22,7 +22,7 @@ const ClickRoll = () => {
         }
     });
 
-    return <Page title="You Clicked!" style={{
+    return <Page noheader title="You Clicked!" style={{
         backgroundImage: `url(${RickRoll})`,
         backgroundSize: 'cover',
         filter: 'grayscale(100%)'

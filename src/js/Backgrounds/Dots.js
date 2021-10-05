@@ -72,6 +72,8 @@ export default class Dots {
 
         this.dots = [];
 
+        this.paused = false;
+
         for (var i = 0; i < 120; i++) {
             this.dots.push(new Dot({
                 canvas: {width: this.props.width, height: this.props.height}
@@ -79,17 +81,16 @@ export default class Dots {
         }
     }
 
+    onPause() {
+        this.paused = true; 
+    }
+
     onUnpause() {
-        this.dots.forEach(dot => {
-            dot.position = {
-                x: Math.random() * this.props.canvas.width,
-                y: Math.random() * this.props.canvas.height
-            }
-        })
+        this.paused = false;
     }
 
     update(dt) {
-        if (!dt) return;
+        if (!dt || this.paused) return;
 
         this.dots.forEach(dot => {dot.update(dt)});
     }

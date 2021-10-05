@@ -27,3 +27,31 @@
     width: 100%;
     height: 100vh;
 }
+
+.home-title {
+    position: relative;
+
+    min-height: 80px;
+
+    min-width: 180px;
+    max-width: 98vw;
+    width: calc(50vw + 100px);
+}
+
+.home-title .title {
+    width: 100%;
+
+    font-size: calc(1.5vh + 20px);
+}
+
+.home-title .subtitle {
+    font-size: calc(1vh + 12px);
+
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.title-container .about-button {
+    margin-top: 2vh;
+}

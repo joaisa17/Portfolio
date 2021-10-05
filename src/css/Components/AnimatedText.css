@@ -1,0 +1,15 @@
+.animated-text {
+    width: fit-content;
+    position: relative;
+}
+
+.animated-text-cursor {
+    width: 1.5px;
+    height: 100%;
+
+    background-color: var(--lcol1);
+
+    position: absolute;
+    top: 1px;
+    right: -3px;
+}

@@ -46,7 +46,7 @@ export default function About() {
                     When it comes to my competence in development, I'm highly experienced with
                     the framework I used to make this website, React. I'm a fast learner, and
                     have just passed 1 year of experience using HTML, CSS and Javascript, and
-                    am still actively learning. I'm somewhat experienced with backend development,
+                    am still actively learning. I'm fairly experienced with backend development,
                     using Express, and I've also made a few games in Unity with C#.
                 </p>
 
@@ -59,7 +59,7 @@ export default function About() {
                 </p>
 
                 <video
-                    className="d-block mx-auto mw-100 "
+                    className="d-block mx-auto mw-100 mt-5 "
                     src={IceTea}
                     controls
                     style={{width: 'calc(50% + 100px)'}}

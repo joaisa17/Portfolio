@@ -8,7 +8,7 @@ import { EirikVsAdrian as AudioAssets } from '@Media/mp3';
 import { EirikVsAdrian as MusicAssets } from '@Media/wav';
 
 export default function EirikVsAdrian() {
-    return <Page title="Eirik Vs. Adrian">
+    return <Page noheader title="Eirik Vs. Adrian">
         <GameWithCanvas game={Game} assets={{
             img: {
                 adrian: ImageAssets.Adrian,

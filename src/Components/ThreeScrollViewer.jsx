@@ -2,10 +2,33 @@ import React, { useEffect, useState } from 'react'
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
+const renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+const scene = new THREE.Scene();
+
+const ambient = new THREE.AmbientLight(0xeeeeff, 0.4);
+scene.add(ambient);
+
+const newLight = (x, y, z) => {
+    const light = new THREE.DirectionalLight(0xeeeeff, 0.5);
+    light.position.set(x, y, z);
+    light.target.position.set(0, 0, 0);
+    scene.add(light);
+    return light;
+}
+
+for (var i = 0; i < 360; i+=360 / 3) {
+    newLight(
+        Math.sin((i / 180) * Math.PI) * 5,
+        5,
+        Math.cos((i / 180) * Math.PI) * 5
+    )
+}
+
 const ThreeScrollViewer = props => {
     
-    const [renderer, setRenderer] = useState(undefined);
-    const [scene] = useState(new THREE.Scene());
+    const [src] = useState(props.src);
+    const [gltf, setGLTF] = useState(undefined);
+    console.log(scene.children);
     const [camera] = useState(new THREE.PerspectiveCamera(
         45,
         window.screen.width / window.screen.height,
@@ -18,67 +41,61 @@ const ThreeScrollViewer = props => {
 
     useEffect(() => {
         setMounted(true);
-
-        if (!renderer) return setRenderer(new THREE.WebGLRenderer({alpha: true, antialias: true}));
-        scene.children.forEach(obj => scene.remove(obj));
-
         renderer.setSize(window.screen.width, window.screen.height);
 
-        const newLight = (x, y, z) => {
-            const light = new THREE.PointLight(0xeeeeff, 1.2, 480);
-            light.position.set(x, y, z);
-
-            scene.add(light);
-            return light
+        if (!gltf || props.src !== src) {
+            const loader = new GLTFLoader();
+            loader.load(props.src, obj => {
+                if (scene.getObjectByName('Scene')) return;
+                scene.add(obj.scene);
+                setGLTF(obj);
+            });
         }
 
-        const loader = new GLTFLoader();
-        loader.load(props.src, gltf => {
-            scene.add(gltf.scene);
+        if (!scene || !gltf) return;
+
+        const startingOffAngle = -135;
+        const floor = gltf.scene.getObjectByName('Floor');
+
+        const render = () => {
+            const scroll = window.scrollY;
+            const floorHeight = !floor ? 0 : floor.position.y;
+
+            const heightExp = Math.sin(
+                Math.min(
+                    ((scroll / 32) / 180) * Math.PI,
+                    (90 / 180) * Math.PI
+                )
+            );
+
+            console.log(heightExp);
+
+            camera.position.set(
+                Math.sin((startingOffAngle / 180) * Math.PI + (scroll / 250)) * (10 - heightExp * 2),
+                floorHeight + 6 - heightExp * 5,
+                Math.cos((startingOffAngle / 180) * Math.PI + (scroll / 250)) * (10 - heightExp * 2)
+            );
+
             camera.lookAt(gltf.scene.position);
-
-            const sky = gltf.scene.getObjectByName('Sky');
-            if (sky) sky.receiveShadow = false;
-
-            const floor = gltf.scene.getObjectByName('Floor');
-
-            newLight(-3, 4, 2);
-            newLight(3, 4, -2);
-
-            const startingOffAngle = -135;
-            
-            let render = () => {
-                let scroll = window.scrollY;
-
-                camera.position.set(
-                    Math.sin((startingOffAngle / 180) * Math.PI + (scroll / 250)) * 10,
-                    Math.max(5 - (scroll / 220), (floor ? floor.position.y : 0) + 1),
-                    Math.cos((startingOffAngle / 180) * Math.PI + (scroll / 250)) * 10
-                );
-
-                camera.lookAt(gltf.scene.position);
                 
-                renderer.render(scene, camera);
-            }
+            renderer.render(scene, camera);
+        }
 
-            if (div) {
-                div.appendChild(renderer.domElement);
-                const listener = () => {
-                    if (mounted) requestAnimationFrame(render);
-                    else document.removeEventListener('scroll', listener);
-                }
-                document.addEventListener('scroll', listener);
-                requestAnimationFrame(render);
-            }
-        });
+        const listener = () => {
+            if (!mounted) return document.removeEventListener('scroll', listener);
+
+            requestAnimationFrame(render);
+        }
+
+        document.addEventListener('scroll', listener);
+
+        div.appendChild(renderer.domElement);
+        requestAnimationFrame(render);
 
         return () => {
-            scene.children.forEach(obj => scene.remove(obj));
-            setMounted(false);
-            renderer.domElement.remove();
-            renderer.clear();
+            scene.remove(scene.getObjectByName('Scene'));
         }
-    }, [props.src, div, mounted, camera, renderer, scene]);
+    }, [props.src, div, mounted, camera, gltf, src]);
 
     return <div className={`three-viewer${props.className ? ` ${props.className}`:''}`} ref={ref => setDiv(ref)} />
 }

@@ -14,8 +14,6 @@ export default function Page(props) {
         if (props.nofooter) footer.classList.add('hide');
         else footer.classList.remove('hide');
 
-        window.scrollTo(0, 0);
-
         const hash = window.location.hash;
 
         if(hash === '#contact') {
@@ -33,6 +31,8 @@ export default function Page(props) {
 
             contactElement.scrollIntoView();
         }
+
+        else window.scrollTo(0, 0);
     });
 
     return <React.Fragment>

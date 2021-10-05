@@ -29,12 +29,12 @@ export default class Background extends React.Component {
 
     pauseBackground() {
         this.paused = true;
-        if (this.background.onPause) this.background.onPause();
+        this.background.onPause();
     }
 
     unpauseBackground() {
         this.paused = false;
-        if (this.background.onUnpause) this.background.onUnpause();
+        this.background.onUnpause();
     }
     
 

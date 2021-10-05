@@ -33,6 +33,7 @@ export default class Lines {
         this.props = props;
 
         this.ctx = props.ctx;
+        this.paused = false;
 
         this.randomRange = 2000;
         this.lines = [];
@@ -46,8 +47,16 @@ export default class Lines {
         }
     }
 
+    onPause() {
+        this.paused = true; 
+    }
+
+    onUnpause() {
+        this.paused = false;
+    }
+
     update(dt) {
-        if (!dt) return;
+        if (!dt || this.paused) return;
 
         this.lines.forEach(line => {
             line.update(dt);
