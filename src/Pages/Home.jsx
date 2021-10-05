@@ -4,7 +4,10 @@ import { Page, VerticallyCenteredDiv, Background } from '@Components';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
+import '@css/Pages/Home.css';
+
 export default function Home() {
+
     return <Page title="Home">
         <div className="background-image" />
         <Background variant="lines" color="rgba(40, 200, 255, .5)" />

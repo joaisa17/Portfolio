@@ -30,6 +30,7 @@ export default class GameWithCanvas extends React.Component {
         this.game = undefined;
 
         this.mounted = false;
+        this.canvas = undefined;
         this.ctx = undefined;
         this.lt = 0;
 
@@ -69,17 +70,16 @@ export default class GameWithCanvas extends React.Component {
 
         this.mounted = true;
 
-        let canvas = document.getElementById('game-canvas');
-        if (!canvas) return;
+        if (!this.canvas) return;
 
         this.game = new this.props.game({
             gameWidth: this.gameWidth,
             gameHeight: this.gameHeight,
-            canvas: canvas,
+            canvas: this.canvas,
             ...this.props
         });
 
-        this.ctx = canvas.getContext('2d');
+        this.ctx = this.canvas.getContext('2d');
 
         // Event listeners, for ergonomics and cheat prevention
 
@@ -104,7 +104,7 @@ export default class GameWithCanvas extends React.Component {
 
     render() {
         return <div id="game-container" className="game-container">
-            <canvas id="game-canvas" className="game-canvas" width={this.gameWidth} height={this.gameHeight} />
+            <canvas ref={canvas => this.canvas = canvas} id="game-canvas" className="game-canvas" width={this.gameWidth} height={this.gameHeight} />
 
             <div className="bottom-ui">
                 <Row className="float-end">

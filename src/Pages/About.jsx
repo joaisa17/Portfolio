@@ -4,11 +4,17 @@ import { Page, Title, SocialLink } from '@Components';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
+import { JoakimCubeScene } from '@Media/gltf';
+import ThreeScrollViewer from '@Components/ThreeScrollViewer';
+
 import CvJoakimIsaksen from '@Media/documents/CvJoakimIsaksen.doc';
 import { IceTea } from '@Media/mp4';
 
+import '@css/Pages/About.css';
+
 export default function About() {
     return <Page title="About Me">
+        <ThreeScrollViewer src={JoakimCubeScene} />
         <div className="mt-4">
             <Title>About Me</Title>
 

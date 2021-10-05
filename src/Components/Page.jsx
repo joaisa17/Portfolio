@@ -24,11 +24,14 @@ export default function Page(props) {
             if (!contactElement) return;
 
             contactElement.classList.remove('flash-end');
-            contactElement.classList.add('flash-enter')
+            contactElement.classList.add('flash-enter');
+
             setTimeout(() => {
                 contactElement.classList.remove('flash-enter')
                 contactElement.classList.add('flash-end');
             }, 750);
+
+            contactElement.scrollIntoView();
         }
     });
 

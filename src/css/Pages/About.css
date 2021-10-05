@@ -1,0 +1,16 @@
+.three-viewer {
+    position: fixed;
+    top: -10px;
+
+    width: 100vw;
+    height: auto;
+
+    z-index: -1;
+
+    background-color: rgba(0, 200, 255, 0.5);
+}
+
+.three-viewer canvas {
+    width: 100vw !important;
+    height: auto !important;
+}
