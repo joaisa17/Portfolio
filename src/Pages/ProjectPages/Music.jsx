@@ -16,7 +16,7 @@ const style = {
     overflowY: 'scroll',
     overflowX: 'hidden',
 
-    filter: 'drop-shadow(0 0 16px rgba(255, 255, 255, 0.25))'
+    marginBottom: '50px'
 }
 
 const songs = [
@@ -37,7 +37,7 @@ export default function Music() {
             </Introduction>
         </div>
 
-        <Container className="mx-auto mb-4" style={style}>
+        <Container className="mx-auto" style={style}>
             {songs.map(song => {
                 return <Song {...song} key={song.title} />
             })}

@@ -123,4 +123,6 @@
 
         padding-bottom: 20px;
     }
+
+    .footer .discord-embed iframe {width: 90%;}
 }

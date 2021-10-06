@@ -19,7 +19,7 @@
 }
 
 .about-content {
-    background-color: rgba(0, 0, 0, 10%);
+    min-height: 100vh;
     text-shadow: 0 0 4px black;
 
     margin-bottom: calc(180vh + 100px);

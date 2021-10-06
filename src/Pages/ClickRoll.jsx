@@ -17,14 +17,14 @@ const ClickRoll = () => {
         sound.play();
 
         return () => {
-            sound.stop();
-            sound = undefined;
+            sound.unload();
         }
     });
 
     return <Page noheader title="You Clicked!" style={{
         backgroundImage: `url(${RickRoll})`,
         backgroundSize: 'cover',
+        backgroundPosition: 'center',
         filter: 'grayscale(100%)'
     }}>
 

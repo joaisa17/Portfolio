@@ -57,7 +57,7 @@ export default class Footer extends React.Component {
 
             <div className="discord-embed">
                 <h3>My Discord Server:</h3>
-                <DiscordEmbed width="90%" height="400" />
+                <DiscordEmbed width="300" height="400" />
             </div>
 
         </div>

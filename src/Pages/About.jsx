@@ -51,7 +51,7 @@ export default function About() {
                 </p>
 
                 <p className="pt-5">
-                    I also have a fair bit of experience using a variety of
+                    Additionally, I have a fair bit of experience using a variety of
                     the <ExternalLink href="adobe.com">Adobe</ExternalLink> programs,
                     such as Photoshop, Premiere Pro and After Effects. I also know how to model
                     3D objects in <ExternalLink href="blender.org">Blender</ExternalLink>, as well as make 3D animations. Here is a medium

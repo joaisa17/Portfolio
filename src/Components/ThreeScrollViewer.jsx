@@ -45,7 +45,7 @@ const ThreeScrollViewer = props => {
 
             const heightExp = Math.sin(
                 Math.min(
-                    ((scroll / 20) / 180) * Math.PI,
+                    ((scroll / 40) / 180) * Math.PI,
                     (90 / 180) * Math.PI
                 )
             );
