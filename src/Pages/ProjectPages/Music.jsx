@@ -3,7 +3,6 @@ import React from 'react';
 import { Page, Song, Title, Introduction } from '@Components';
 import { Container } from 'react-bootstrap';
 
-import { SadRickRoll } from 'src/Media/mp3/Songs';
 import { EirikVsAdrian, CarGameLoop } from 'src/Media/wav';
 import { Songs } from '@Media/mp3';
 
@@ -22,9 +21,10 @@ const style = {
 
 const songs = [
     {src: Songs.GalacticGuitar, title: 'Galactic Guitar', date: '24.09.2021'},
-    {src: EirikVsAdrian.MainTheme, title: 'Eirik Vs. Adrian (Loop)', date: '13.10.2020', loop: true},
+    {src: Songs.Thing, title: 'Thing', date: '06.10.2021', volume: 0.3},
+    {src: EirikVsAdrian.MainTheme, title: 'Eirik Vs. Adrian (Loop)', date: '26.11.2020', loop: true, volume: 0.4},
     {src: CarGameLoop, title: 'Grøft Ække Tøft (Loop)', date: 'idfk', loop: true},
-    {src: SadRickRoll, title: 'Sad Rick Roll', date: 'idfk'}
+    {src: Songs.SadRickRoll, title: 'Sad Rick Roll', date: 'idfk', volume: 0.4}
 ]
 
 export default function Music() {
@@ -39,7 +39,7 @@ export default function Music() {
 
         <Container className="mx-auto mb-4" style={style}>
             {songs.map(song => {
-                return <Song {...song} />
+                return <Song {...song} key={song.title} />
             })}
         </Container>
     </Page>
