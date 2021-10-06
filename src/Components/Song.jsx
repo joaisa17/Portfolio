@@ -27,7 +27,7 @@ const Song = props => {
             mute: props.mute || false,
             loop: props.loop || false,
             onend: () => {
-                setPlaying(s.loop())
+                setPlaying(s.loop() && s.playing())
             }
         });
 
