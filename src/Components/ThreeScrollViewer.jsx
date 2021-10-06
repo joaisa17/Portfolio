@@ -3,10 +3,10 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 const loader = new GLTFLoader();
+const renderer = new THREE.WebGLRenderer({antialias: true});
 
 const ThreeScrollViewer = props => {
     
-    const [renderer] = useState(new THREE.WebGLRenderer({antialias: false}));
     const [scene, setScene] = useState(undefined);
     const [gltf, setGLTF] = useState(undefined);;
     const [camera] = useState(new THREE.PerspectiveCamera(
@@ -27,7 +27,6 @@ const ThreeScrollViewer = props => {
             const newScene = new THREE.Scene();
             
             loader.load(props.src, obj => {
-                console.log(obj)
                 newScene.add(obj.scene);
                 setGLTF(obj);
                 setScene(newScene);
@@ -40,6 +39,7 @@ const ThreeScrollViewer = props => {
         const floor = gltf.scene.getObjectByName('Floor');
 
         const render = () => {
+            if (!renderer) return;
             const scroll = window.scrollY;
             const floorHeight = !floor ? 0 : floor.position.y;
 
@@ -78,7 +78,7 @@ const ThreeScrollViewer = props => {
             if (!scene) return;
             scene.remove(scene.getObjectByName('Scene'));
         }
-    }, [props.src, renderer, scene, div, mounted, camera, gltf]);
+    }, [props.src, scene, div, mounted, camera, gltf]);
 
     return <div className={`three-viewer${props.className ? ` ${props.className}`:''}`} ref={ref => setDiv(ref)} />
 }

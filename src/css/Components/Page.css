@@ -1,4 +1,5 @@
 .content {
+    width: 100%;
     min-height: var(--content-min-height);
 
     position: relative;

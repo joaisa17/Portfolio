@@ -1,6 +1,7 @@
 .three-viewer {
     position: fixed;
     top: -10px;
+    left: 0;
 
     width: 100vw;
     height: auto;
