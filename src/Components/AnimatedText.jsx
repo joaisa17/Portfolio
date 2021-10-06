@@ -38,16 +38,16 @@ export default function AnimatedText(props) {
         const update = () => {
             if (!mounted) return;
 
-            const si = titleIndex.current;
+            const ti = titleIndex.current;
             const i = index.current;
             const r = removing.current;
 
-            const text = titles[si];
+            const text = titles[ti];
 
             if (r) {
                 if (i <= 0) {
                     removing.current = false;
-                    titleIndex.current = si < titles.length - 1 ? si + 1 : 0;
+                    titleIndex.current = ti < titles.length - 1 ? ti + 1 : 0;
                     setTimeout(update, timeouts.beforeWriting);
                 }
 

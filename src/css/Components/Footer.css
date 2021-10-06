@@ -50,7 +50,8 @@
 }
 
 .footer .title {
-    font-family: 'd-din';
+    font-family: 'impact', 'd-din';
+    font-weight: lighter;
     font-size: 36px;
 
     padding: 0;

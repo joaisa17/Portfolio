@@ -1,5 +1,6 @@
 .animated-text {
     width: fit-content;
+    white-space: nowrap;
     position: relative;
 }
 

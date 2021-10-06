@@ -9,6 +9,7 @@ import '@css/Pages/Home.css';
 const subtitles = [
     'Javascript Developer',
     '3D Modeller',
+    'Video Editor',
     'Music Producer',
     'Gamer',
     'Norwegian'

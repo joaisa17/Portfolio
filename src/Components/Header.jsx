@@ -20,7 +20,6 @@ const Header = () => {
             if (window.scrollY > 800 && !scrollingUp) element.classList.add('hide-by-scroll');
             else element.classList.remove('hide-by-scroll');
 
-            console.log(scrollingUp);
             last = window.scrollY;
         }
 
