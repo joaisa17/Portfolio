@@ -3,7 +3,6 @@
     min-height: var(--content-min-height);
 
     position: relative;
-    top: 0;
     transition: top 0.2s ease-out;
 }
 
