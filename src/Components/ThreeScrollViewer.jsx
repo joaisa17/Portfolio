@@ -11,7 +11,7 @@ const ThreeScrollViewer = props => {
     const [gltf, setGLTF] = useState(undefined);;
     const [camera] = useState(new THREE.PerspectiveCamera(
         45,
-        window.screen.width / window.screen.height,
+        window.innerWidth / window.innerHeight,
         0.001,
         1000
     ));
@@ -21,7 +21,7 @@ const ThreeScrollViewer = props => {
 
     useEffect(() => {
         setMounted(true);
-        renderer.setSize(window.screen.width, window.screen.height);
+        renderer.setSize(window.innerWidth, window.innerHeight);
 
         if (!scene) {
             const newScene = new THREE.Scene();
@@ -61,13 +61,24 @@ const ThreeScrollViewer = props => {
             renderer.render(scene, camera);
         }
 
-        const listener = () => {
-            if (!mounted) return document.removeEventListener('scroll', listener);
+        const scrollListener = () => {
+            if (!mounted) return document.removeEventListener('scroll', scrollListener);
 
             requestAnimationFrame(render);
         }
 
-        document.addEventListener('scroll', listener);
+        const resizeListener = () => {
+            if (!mounted) return window.removeEventListener('resize', resizeListener);
+
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            render();
+        }
+
+        document.addEventListener('scroll', scrollListener, false);
+        window.addEventListener('resize', resizeListener, false);
 
         div.appendChild(renderer.domElement);
         requestAnimationFrame(render);

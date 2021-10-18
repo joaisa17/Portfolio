@@ -3,15 +3,14 @@
     top: -10px;
     left: 0;
 
-    width: 100vw;
+    width: auto;
     height: auto;
 
     z-index: -1;
 }
 
 .three-viewer canvas {
-    width: 100vw !important;
-    height: auto !important;
+    height: auto;
 }
 
 .about-title {
