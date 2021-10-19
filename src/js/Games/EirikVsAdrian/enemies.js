@@ -178,7 +178,6 @@ export default class Enemies {
 
     update(dt) {
         this.spawnTime -= dt;
-        console.log(this.spawnTime);
 
         if (this.spawnTime <= 0) {
             this.createEnemy();

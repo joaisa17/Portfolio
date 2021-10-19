@@ -61,8 +61,7 @@ export default class Player {
     }
 
     setSprint(v) {
-        console.log("s")
-        this.sprint = v
+        this.sprint = v;
     }
 
     move(d) {
