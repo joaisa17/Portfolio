@@ -6,8 +6,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 import '@css/Components/Footer.css';
 
-import YouTubeLogo from '../Media/svg/logos/youtube.svg';
-import DiscordLogo from '../Media/svg/logos/discord.svg';
+import { YouTubeLogo, DiscordLogo } from '@Media/svg';
 
 export default class Footer extends React.Component {
     render() {
