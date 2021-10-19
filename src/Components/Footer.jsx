@@ -6,7 +6,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 import '@css/Components/Footer.css';
 
-import * as svg from '@Media/svg';
+import * as svg from '../Media/svg';
 
 export default class Footer extends React.Component {
     render() {
