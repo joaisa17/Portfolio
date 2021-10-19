@@ -35,7 +35,7 @@ const Header = () => {
 
         <Navbar.Collapse className="nav-links">
             <Nav>
-                <Link to="/home">Home</Link>
+                <Link to="/">Home</Link>
                 <Link to="/about">About me</Link>
                 <Link to="/projects">My projects</Link>
                 <Link to="/games">My games</Link>
