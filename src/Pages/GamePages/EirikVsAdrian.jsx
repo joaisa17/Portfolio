@@ -3,9 +3,9 @@ import React from 'react';
 import Game from '@js/Games/EirikVsAdrian';
 import { Page, GameWithCanvas } from '@Components';
 
-import { EirikVsAdrian as ImageAssets } from '@Media/png';
-import { EirikVsAdrian as AudioAssets } from '@Media/mp3';
-import { EirikVsAdrian as MusicAssets } from '@Media/wav';
+import * as ImageAssets from '@Media/png/EirikVsAdrian';
+import * as AudioAssets from '@Media/mp3/EirikVsAdrian';
+import { EirikVsAdrianLoop } from '@Media/wav';
 
 export default function EirikVsAdrian() {
     return <Page noheader title="Eirik Vs. Adrian">
@@ -20,7 +20,7 @@ export default function EirikVsAdrian() {
                 eirikSwoosh: AudioAssets.EirikSwoosh,
                 eirikAu: AudioAssets.EirikAu,
 
-                music: MusicAssets.MainTheme
+                music: EirikVsAdrianLoop
             }
         }} />
     </Page>

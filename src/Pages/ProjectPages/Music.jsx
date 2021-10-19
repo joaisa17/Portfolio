@@ -3,8 +3,8 @@ import React from 'react';
 import { Page, Song, Title, Introduction } from '@Components';
 import { Container } from 'react-bootstrap';
 
-import { EirikVsAdrian, CarGameLoop } from 'src/Media/wav';
-import { Songs } from '@Media/mp3';
+import { EirikVsAdrianLoop, CarGameLoop } from 'src/Media/wav';
+import * as Songs from '@Media/mp3/Songs';
 
 const style = {
     width: '600px',
@@ -22,7 +22,7 @@ const style = {
 const songs = [
     {src: Songs.GalacticGuitar, title: 'Galactic Guitar', date: '24.09.2021'},
     {src: Songs.Thing, title: 'Thing', date: '06.10.2021', volume: 0.3},
-    {src: EirikVsAdrian.MainTheme, title: 'Eirik Vs. Adrian (Loop)', date: '26.11.2020', loop: true, volume: 0.4},
+    {src: EirikVsAdrianLoop, title: 'Eirik Vs. Adrian (Loop)', date: '26.11.2020', loop: true, volume: 0.4},
     {src: CarGameLoop, title: 'Grøft Ække Tøft (Loop)', date: 'idfk', loop: true},
     {src: Songs.SadRickRoll, title: 'Sad Rick Roll', date: 'idfk', volume: 0.4}
 ]

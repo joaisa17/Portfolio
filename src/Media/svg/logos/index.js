@@ -1,7 +1,7 @@
-import DiscordLogo from './discord.svg';
-import YoutubeLogo from './youtube.svg';
+import Discord from './discord.svg';
+import YouTube from './youtube.svg';
 
 export {
-    DiscordLogo,
-    YoutubeLogo
+    Discord,
+    YouTube
 }
