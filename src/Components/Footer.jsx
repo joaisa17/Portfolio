@@ -6,7 +6,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 import '@css/Components/Footer.css';
 
-import * as svg from '@Media/svg/index';
+import { YouTubeLogo, DiscordLogo } from '../Media/svg';
 
 export default class Footer extends React.Component {
     render() {
@@ -15,8 +15,8 @@ export default class Footer extends React.Component {
                 <Row className="top">
                     <Col className="title">Joakim Isaksen</Col>
                     <Col className="social-links">
-                        <SocialLink href="youtube.com/ignwombat"><img src={svg.YouTubeLogo} alt="YouTube" /></SocialLink>
-                        <SocialLink href="discord.gg/YdJ345mXmK"><img src={svg.DiscordLogo} alt="Discord" /></SocialLink>
+                        <SocialLink href="youtube.com/ignwombat"><img src={YouTubeLogo} alt="YouTube" /></SocialLink>
+                        <SocialLink href="discord.gg/YdJ345mXmK"><img src={DiscordLogo} alt="Discord" /></SocialLink>
                     </Col>
                 </Row>
 
