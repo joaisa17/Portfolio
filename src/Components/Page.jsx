@@ -38,6 +38,8 @@ export default function Page(props) {
     return <React.Fragment>
         <Helmet>
             <title>{props.title ? `${props.title} | J.I` : 'Joakim Isaksen'}</title>
+
+            {props.description ? <meta name="description" content={props.description} /> : ''}
         </Helmet>
 
         <div className="content" style={props.style}>{props.children}</div>

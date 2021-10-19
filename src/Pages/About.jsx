@@ -12,8 +12,12 @@ import { IceTea } from '@Media/mp4';
 
 import '@css/Pages/About.css';
 
+const description = `This page contains everything
+you need to know about
+Joakim Isaksen.`
+
 export default function About() {
-    return <Page title="About Me">
+    return <Page title="About Me" description={description}>
         <ThreeScrollViewer src={JoakimCubeScene} />
         <div className="mt-4 about-title">
             <Title>About Me</Title>
