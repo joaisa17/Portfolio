@@ -1,3 +1,7 @@
+const scoreComments = {
+    69: 'Nice'
+}
+
 export default class Screens {
     constructor(game) {
         this.game = game;
@@ -53,8 +57,14 @@ export default class Screens {
     gameover(ctx) {
         this.background(ctx);
 
+        let score = `Score: ${this.game.score}`;
+
+        const comment = scoreComments[this.game.score];
+        score += comment ? ` (${comment})` : '';
+
+
         let subtitles = [
-            `Score: ${this.game.score}`,
+            score,
             this.game.score > this.game.sessionHighScore ? 'NEW SESSION HIGH SCORE!' : `Session High Score: ${this.game.sessionHighScore}`,
             `Press ${this.game.inputHandler.keyBinds.restart.replace('Key', '')} to restart`
         ];

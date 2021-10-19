@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef, useCallback } from 'react'
 
 import '../css/Components/GameWithCanvas.css';
 
@@ -18,99 +18,96 @@ const preventScrollingKeys = [
     38,
     39,
     40
-]
+];
 
-export default class GameWithCanvas extends React.Component {
-    constructor(props) {
-        super(props);
+function clamp(number, min, max) {
+    return Math.max(
+        min,
+        Math.min(number, max)
+    );
+}
 
-        this.gameWidth = Math.max(800, window.screen.width);
-        this.gameHeight = Math.max(800, window.screen.height);
+const GameWithCanvas = ({game, ...props}) => {
+    const gameWidth = clamp(window.screen.width, 800, 2000);
+    const gameHeight = clamp(window.screen.height, 800, 2000);
 
-        this.game = undefined;
+    const mountedRef = useRef(false);
 
-        this.mounted = false;
-        this.canvas = undefined;
-        this.ctx = undefined;
-        this.lt = 0;
+    const gameRef = useRef();
+    const ctxRef = useRef();
 
-        this.gameLoop = this.gameLoop.bind(this);
-        this.preventScroll = this.preventScroll.bind(this);
-        this.toggleFullScreen = this.toggleFullScreen.bind(this);
-    }
+    const lastTime = useRef(0);
 
-    toggleFullScreen() {
-        let container = document.getElementById('game-container');
+    function toggleFullScreen() {
+        const container = document.querySelector('#game-container');
         if (!container) return;
 
         if (document.fullscreenElement !== null) document.exitFullscreen();
         else container.requestFullscreen();
     }
 
-    preventScroll(e) {
+    function preventScroll(e) {
         if (preventScrollingKeys.indexOf(e.code) > -1 || preventScrollingKeys.indexOf(e.keyCode) > -1) e.preventDefault();
     }
 
-    gameLoop(ts) {
-        if (!this.mounted) return;
-        let dt = ts - this.lt;
-        this.lt = ts;
+    const gameLoop = useCallback(ts => {
+        if (!mountedRef.current) return;
+        let dt = ts - lastTime.current;
+        lastTime.current = ts;
 
-        if (dt && this.ctx) {
-            this.game.update(dt);
+        if (dt && ctxRef.current && gameRef.current) {
+            gameRef.current.update(dt);
 
-            this.ctx.clearRect(0, 0, this.gameWidth, this.gameHeight);
-            this.game.draw(this.ctx);
+            ctxRef.current.clearRect(0, 0, gameWidth, gameHeight);
+            gameRef.current.draw(ctxRef.current);
         }
 
-        requestAnimationFrame(this.gameLoop);
-    }
+        requestAnimationFrame(gameLoop);
+    }, [gameRef, gameHeight, gameWidth]);
 
-    componentDidMount() {
+    useEffect(() => {
+        const canvas = document.querySelector('#game-canvas');
+        mountedRef.current = true;
 
-        this.mounted = true;
-
-        if (!this.canvas) return;
-
-        this.game = new this.props.game({
-            gameWidth: this.gameWidth,
-            gameHeight: this.gameHeight,
-            canvas: this.canvas,
-            ...this.props
+        gameRef.current = new game({
+            gameWidth: gameWidth,
+            gameHeight: gameHeight,
+            canvas: canvas,
+            ...props
         });
 
-        this.ctx = this.canvas.getContext('2d');
+        ctxRef.current = canvas.getContext('2d');
 
         // Event listeners, for ergonomics and cheat prevention
 
         window.addEventListener('keydown', e => {
-            if (!this.mounted) return;
-            if (e.code === 'KeyF') this.toggleFullScreen();
-            else this.preventScroll(e);
+            if (!mountedRef.current) return;
+            if (e.code === 'KeyF') toggleFullScreen();
+            else preventScroll(e);
         }, false);
 
         window.addEventListener('blur', () => {
-            if (this.game && this.game.state !== 'paused') this.game.togglePause();
+            if (game.current && game.current.state !== 'paused') game.current.togglePause();
         });
 
-        requestAnimationFrame(this.gameLoop);
-    }
+        requestAnimationFrame(gameLoop);
 
-    componentWillUnmount() {
-        this.game.onUnmount();
-        this.mounted = false;
-        window.removeEventListener('keydown', this.preventScroll)
-    }
+        return () => {
+            gameRef.current.onUnmount();
+            mountedRef.current = false;
+            window.removeEventListener('keydown', preventScroll);
+        }
+    }, [game, gameHeight, gameWidth, props, gameLoop]);
 
-    render() {
-        return <div id="game-container" className="game-container">
-            <canvas ref={canvas => this.canvas = canvas} id="game-canvas" className="game-canvas" width={this.gameWidth} height={this.gameHeight} />
+    return <div id="game-container" className="game-container">
+        <canvas id="game-canvas" className="game-canvas" width={gameWidth} height={gameHeight} />
 
-            <div className="bottom-ui">
-                <Row className="float-end">
-                    <Col><img src={FullscreenButton} className="toggle-fullscreen-button" alt="Toggle Fullscreen" onClick={this.toggleFullScreen} /></Col>
-                </Row>
-            </div>
+        <div className="bottom-ui">
+            <Row className="float-end">
+                <Col><img src={FullscreenButton} className="toggle-fullscreen-button" alt="Toggle Fullscreen" onClick={toggleFullScreen} /></Col>
+            </Row>
         </div>
-    }
+    </div>
 }
+
+export default GameWithCanvas;

@@ -4,10 +4,16 @@ export default class SoundHandler {
     constructor(game) {
         this.game = game;
 
-        this.enemySpawn = game.props.assets.audio.adrian;
+        const assets = game.props.assets.audio;
 
-        this.swoosh = new Audio(game.props.assets.audio.eirikSwoosh);
-        this.death = new Audio(game.props.assets.audio.eirikAu);
+        this.enemySpawn = assets.adrian;
+
+        this.swoosh = new Audio(assets.eirikSwoosh);
+        this.death = new Audio(assets.eirikAu);
+
+        this.scoreSounds = {
+            69: new Audio(assets.freiNice)
+        };
 
         this.music = new Howl({
             src: game.props.assets.audio.music,
@@ -69,6 +75,8 @@ export default class SoundHandler {
         
         this.music.stop();
         this.death.play();
+
+        if (this.scoreSounds[this.game.score]) setTimeout(this.scoreSounds[this.game.score].play(), 300);
 
         this.enemySounds.forEach(enemySound => {
             enemySound.pause();

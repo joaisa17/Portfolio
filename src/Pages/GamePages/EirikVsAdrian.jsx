@@ -19,6 +19,7 @@ export default function EirikVsAdrian() {
                 adrian: AudioAssets.Adrian,
                 eirikSwoosh: AudioAssets.EirikSwoosh,
                 eirikAu: AudioAssets.EirikAu,
+                freiNice: AudioAssets.FreiNice,
 
                 music: EirikVsAdrianLoop
             }
