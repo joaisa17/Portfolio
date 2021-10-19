@@ -64,7 +64,7 @@ export default class Game {
     restart() {
         if (this.state !== 'gameover') return;
         this.sessionHighScore = this.score > this.sessionHighScore ? this.score : this.sessionHighScore;
-        this.scoreFloat = 69;
+        this.scoreFloat = 0;
 
         this.player.reset();
         this.enemyHandler.reset();
