@@ -81,7 +81,7 @@
     color: var(--text-light);
     text-decoration: none;
 
-    opacity: 60%;
+    opacity: .6;
 
     padding: 0;
 }
@@ -91,7 +91,7 @@
 
 .footer .bottom p:hover,
 .footer .bottom p:active {
-    opacity: 50%;
+    opacity: .5;
 }
 
 .footer .bottom .link-title {
