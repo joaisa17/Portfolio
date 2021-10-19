@@ -5,7 +5,7 @@
     background-color: var(--dcol3);
 
     position: absolute;
-    bottom: calc(- var(--footer-height));
+    bottom: calc(0 - var(--footer-height));
 
     display: grid;
 
