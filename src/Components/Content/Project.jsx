@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '@css/Components/Project.css';
+import '@css/Components/Content/Project.css';
 
 import { Link } from 'react-router-dom';
 import { Col, Card } from 'react-bootstrap';

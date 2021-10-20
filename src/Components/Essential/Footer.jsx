@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { SocialLink, DiscordEmbed } from '@Components';
 import { Container, Row, Col } from 'react-bootstrap';
 
-import '@css/Components/Footer.css';
+import '@css/Components/Essential/Footer.css';
 
 import * as Logos from '@Media/svg/logos';
 

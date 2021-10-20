@@ -5,7 +5,7 @@ import { Row, Col } from 'react-bootstrap';
 
 import { PlayButton, PauseButton, RepeatButton, AudioUnmuted, AudioMuted } from 'src/Media/svg/ui';
 
-import '@css/Components/Song.css';
+import '@css/Components/Content/Song.css';
 
 const Song = props => {
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 
-import '@css/Components/AnimatedText.css';
+import '@css/Components/Content/AnimatedText.css';
 
 const timeouts = {
     beforeWriting: 250,

@@ -1,5 +1,9 @@
 const scoreComments = {
-    69: 'Nice'
+    0: 'Du suger tissmann',
+    4: 'Edvard kul!',
+    64: 'One stack!',
+    69: 'Nice',
+    420: 'Blaze it'
 }
 
 export default class Screens {
@@ -26,8 +30,6 @@ export default class Screens {
         ctx.textAlign = 'center';
 
         this.drawCenteredText(ctx, title, this.gh / 2);
-
-
 
         for(var i = 0; i < subtitles.length; i++) {
             ctx.font = `normal ${40 - i * 8}px arial`;

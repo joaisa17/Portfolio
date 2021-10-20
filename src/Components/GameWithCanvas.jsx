@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useCallback } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
 
-import '../css/Components/GameWithCanvas.css';
+import '@css/Components/GameWithCanvas.css';
 
 import { Row, Col } from 'react-bootstrap';
 import { FullscreenButton } from '@Media/svg/ui';
@@ -30,6 +30,9 @@ function clamp(number, min, max) {
 const GameWithCanvas = ({game, ...props}) => {
     const gameWidth = clamp(window.screen.width, 800, 2000);
     const gameHeight = clamp(window.screen.height, 800, 2000);
+    
+    const [canvasWidth, setCanvasWidth] = useState(gameWidth);
+    const [canvasHeight, setCanvasHeight] = useState(gameHeight);
 
     const mountedRef = useRef(false);
 
@@ -42,8 +45,10 @@ const GameWithCanvas = ({game, ...props}) => {
         const container = document.querySelector('#game-container');
         if (!container) return;
 
-        if (document.fullscreenElement !== null) document.exitFullscreen();
-        else container.requestFullscreen();
+        if (document.fullscreenElement !== null)
+            document.exitFullscreen().catch(() => {});
+        else
+            container.requestFullscreen().catch(() => {});
     }
 
     function preventScroll(e) {
@@ -80,6 +85,16 @@ const GameWithCanvas = ({game, ...props}) => {
 
         // Event listeners, for ergonomics and cheat prevention
 
+        window.addEventListener('resize', () => {
+            const newWidth = clamp(window.screen.width, 800, 2000);
+            const newHeight = clamp(window.screen.height, 800, 2000);
+
+            gameRef.current.onResize(newWidth, newHeight);
+
+            setCanvasWidth(newWidth);
+            setCanvasHeight(newHeight);
+        });
+
         window.addEventListener('keydown', e => {
             if (!mountedRef.current) return;
             if (e.code === 'KeyF') toggleFullScreen();
@@ -100,7 +115,7 @@ const GameWithCanvas = ({game, ...props}) => {
     }, [game, gameHeight, gameWidth, props, gameLoop]);
 
     return <div id="game-container" className="game-container">
-        <canvas id="game-canvas" className="game-canvas" width={gameWidth} height={gameHeight} />
+        <canvas id="game-canvas" className="game-canvas" width={canvasWidth} height={canvasHeight} />
 
         <div className="bottom-ui">
             <Row className="float-end">

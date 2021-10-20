@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { JoakimCubeScene } from '@Media/gltf';
-import ThreeScrollViewer from '@Components/ThreeScrollViewer';
+import { ThreeScrollViewer } from '@Components';
 
 import CvJoakimIsaksen from '@Media/documents/CvJoakimIsaksen.doc';
 import { IceTea } from '@Media/mp4';

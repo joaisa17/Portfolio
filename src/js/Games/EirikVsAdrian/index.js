@@ -30,6 +30,11 @@ export default class Game {
         this.dev = props.devmode ? new Dev(this) : undefined;
     }
 
+    onResize(width, height) {
+        this.props.gameWidth = width;
+        this.props.gameHeight = height;
+    }
+
     onUnmount() {
         this.terminated = true;
         this.soundHandler.stopAllSounds();
@@ -64,7 +69,7 @@ export default class Game {
     restart() {
         if (this.state !== 'gameover') return;
         this.sessionHighScore = this.score > this.sessionHighScore ? this.score : this.sessionHighScore;
-        this.scoreFloat = 0;
+        this.scoreFloat = this.props.devmode ? 60 : 0;
 
         this.player.reset();
         this.enemyHandler.reset();
