@@ -27,9 +27,9 @@ function clamp(number, min, max) {
     );
 }
 
-const GameWithCanvas = ({game, ...props}) => {
-    const gameWidth = clamp(window.screen.width, 800, 2000);
-    const gameHeight = clamp(window.screen.height, 800, 2000);
+const GameWithCanvas = ({game, width, height, ...props}) => {
+    const gameWidth = width || clamp(window.screen.width, 800, 2000);
+    const gameHeight = height || clamp(window.screen.height, 800, 2000);
     
     const [canvasWidth, setCanvasWidth] = useState(gameWidth);
     const [canvasHeight, setCanvasHeight] = useState(gameHeight);
@@ -85,15 +85,17 @@ const GameWithCanvas = ({game, ...props}) => {
 
         // Event listeners, for ergonomics and cheat prevention
 
-        window.addEventListener('resize', () => {
-            const newWidth = clamp(window.screen.width, 800, 2000);
-            const newHeight = clamp(window.screen.height, 800, 2000);
-
-            gameRef.current.onResize(newWidth, newHeight);
-
-            setCanvasWidth(newWidth);
-            setCanvasHeight(newHeight);
-        });
+        if (!width && !height) {
+            window.addEventListener('resize', () => {
+                const newWidth = clamp(window.screen.width, 800, 2000);
+                const newHeight = clamp(window.screen.height, 800, 2000);
+    
+                gameRef.current.onResize(newWidth, newHeight);
+    
+                setCanvasWidth(newWidth);
+                setCanvasHeight(newHeight);
+            });
+        }
 
         window.addEventListener('keydown', e => {
             if (!mountedRef.current) return;
@@ -112,7 +114,7 @@ const GameWithCanvas = ({game, ...props}) => {
             mountedRef.current = false;
             window.removeEventListener('keydown', preventScroll);
         }
-    }, [game, gameHeight, gameWidth, props, gameLoop]);
+    }, [game, width, height, gameHeight, gameWidth, props, gameLoop]);
 
     return <div id="game-container" className="game-container">
         <canvas id="game-canvas" className="game-canvas" width={canvasWidth} height={canvasHeight} />

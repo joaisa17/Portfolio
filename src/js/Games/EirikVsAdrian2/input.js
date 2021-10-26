@@ -25,6 +25,24 @@ export default class InputHandler {
 
             this.keyStates[event.code] = false;
         });
+
+        this.game.props.canvas.addEventListener('click', () => {
+            switch(this.game.state) {
+                case 'paused':
+                    this.game.togglePause(false);
+                break;
+
+                case 'running':
+                    this.game.player.jump();
+                break;
+
+                case 'gameover':
+                    this.game.restart();
+                break;
+
+                default: return;
+            }
+        });
     }
 
     keyIsKeyBind(key, keybind) {

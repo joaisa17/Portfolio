@@ -1,7 +1,7 @@
 .game-canvas {
     background-color: var(--dcol2);
 
-    width: 100%;
+    width: auto;
     height: 100%;
 
     display: block;
@@ -20,10 +20,24 @@
 }
 
 .game-container:not(:fullscreen) {
-    width: 75%;
+    width: fit-content;
     height: auto;
 
     margin: 0 auto 0 auto;
+}
+
+.game-container:not(:fullscreen) .game-canvas {max-height: 90vh;}
+
+.game-container:fullscreen {
+    width: 100vw;
+    background-color: var(--dcol1);
+}
+
+.game-container:fullscreen .game-canvas {
+    position: absolute;
+    
+    left: 50%;
+    transform: translateX(-50%)
 }
 
 .game-container:fullscreen .bottom-ui {
