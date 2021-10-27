@@ -38,8 +38,8 @@ export default class Player {
         this.size = 48;
         this.collisionRadius = 48;
 
-        this.imageSrc = document.createElement('img');
-        this.imageSrc.setAttribute('src', this.game.props.assets.img.eirik);
+        this.image = new Image();
+        this.image.src = this.game.props.assets.img.eirik;
         
         this.imageSizeOffset = 56;
     }
@@ -50,7 +50,12 @@ export default class Player {
 
     jump() {
         if (this.game.state !== 'running' || this.dying) return;
-        this.moving = true;
+
+        if (!this.moving) {
+            this.moving = true;
+            this.game.soundHandler.onPlayerStart();
+        }
+
         this.vel.y = clamp(this.vel.y - this.jumpPower / 2, -Infinity, -this.jumpPower)
     }
 
@@ -76,6 +81,9 @@ export default class Player {
     }
 
     die() {
+        if (this.dying) return;
+        this.game.soundHandler.onPlayerDie();
+
         this.dying = true;
         this.vel = {
             x: Math.random() * 50 - 25,
@@ -88,8 +96,6 @@ export default class Player {
     }
 
     reset() {
-        console.log('reset');
-
         this.dying = false;
         this.dead = false;
 
@@ -141,8 +147,6 @@ export default class Player {
     }
 
     draw(ctx) {
-        ctx.fillStyle = 'white';
-
         const drawPos = {
             x: this.pos.x - this.imageSizeOffset / 2 + this.size / 2 - this.game.camera.pos.x,
             y: this.pos.y - this.imageSizeOffset / 2 + this.size / 2 - this.game.camera.pos.y
@@ -152,7 +156,7 @@ export default class Player {
         ctx.rotate(this.rotation)
 
         ctx.drawImage(
-            this.imageSrc,
+            this.image,
             0 - this.size,
             0 - this.size,
             this.size + this.imageSizeOffset,

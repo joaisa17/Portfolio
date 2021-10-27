@@ -4,6 +4,8 @@ import Game from '@js/Games/EirikVsAdrian2';
 import { Page, GameWithCanvas } from '@Components';
 
 import * as ImageAssets from '@Media/png/EirikVsAdrian2';
+import * as SoundAssets from '@Media/mp3/EirikVsAdrian2';
+import { EirikVsAdrian2Loop } from '@Media/wav';
 
 export default function EirikVsAdrian2() {
     return <Page noheader title="Eirik Vs. Adrian 2">
@@ -19,6 +21,14 @@ export default function EirikVsAdrian2() {
                 bgMountains: ImageAssets.BackgroundMountains,
                 bgForest: ImageAssets.BackgroundForest,
                 bgTrees: ImageAssets.BackgroundTrees
+            },
+
+            audio: {
+                music: EirikVsAdrian2Loop,
+
+                eirikAu: SoundAssets.EirikAu,
+                eirkSwoosh: SoundAssets.EirikSwoosh,
+                adrian: SoundAssets.Adrian
             }
         }} />
     </Page>

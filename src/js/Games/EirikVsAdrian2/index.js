@@ -1,5 +1,7 @@
 import Player from './player';
+import EnemyHandler from './enemies';
 import InputHandler from './input';
+import SoundHandler from './sound';
 import Screens from './screens';
 import Dev from './dev';
 import Scene from './scene';
@@ -7,6 +9,7 @@ import Scene from './scene';
 export default class Game {
     constructor(props) {
         this.terminated = false;
+        this.gameoverDebounce = false;
         this.props = props;
 
         this.camera = {
@@ -16,25 +19,40 @@ export default class Game {
             }
         }
 
+        this.scoreFloat = 0;
+        this.score = 0;
+
         this.state = 'paused';
 
-        this.player = new Player(this);
-        this.inputHandler = new InputHandler(this);
-        this.screens = new Screens(this);
+        this.soundHandler = new SoundHandler(this);
+
         this.scene = new Scene(this);
+
+        this.player = new Player(this);
+        this.enemyHandler = new EnemyHandler(this);
+        this.inputHandler = new InputHandler(this);
+
+        this.screens = new Screens(this);
         this.dev = new Dev(this);
     }
 
     update(dt) {
-        if (this.player.dead) this.state = 'gameover';
+        if (this.player.dead) this.gameOver();
 
         if (this.state === 'paused' || this.state === 'gameover') return;
         this.player.update(dt);
+        this.enemyHandler.update(dt);
+
+        if (this.player.moving) {
+            this.scoreFloat += dt / 1000;
+            this.score = Math.floor(this.scoreFloat);
+        }
     }
 
     draw(ctx) {
         this.scene.draw(ctx);
         this.player.draw(ctx);
+        this.enemyHandler.draw(ctx);
         
         if (this.props.devmode) {
             this.dev.drawHitboxes(ctx);
@@ -44,8 +62,13 @@ export default class Game {
     }
 
     restart() {
+        this.gameoverDebounce = false;
+        this.scoreFloat = 0;
+        this.score = 0;
+
         this.player.reset();
         this.scene.reset();
+        this.enemyHandler.reset();
 
         this.camera.pos = {
             x: 0,
@@ -53,36 +76,44 @@ export default class Game {
         }
 
         this.state = 'running';
-
+        this.soundHandler.onRestart();
     }
 
     onPause() {
-        
+        this.soundHandler.onPause();
     }
 
     onUnpause() {
-        
+        this.soundHandler.onUnpause();
     }
 
     togglePause(force) {
-        if (this.state !== 'running' && this.state !== 'paused') return;
+        console.log('Toggling pause')
+        if (
+            (this.state !== 'running' && this.state !== 'paused')
+            || this.player.dying
+        ) return;
 
         let toPause = this.state === 'running';
         if (force !== undefined) toPause = force;
 
         if (toPause) {
             this.state = 'paused';
-            //this.soundHandler.onPause();
+            this.onPause();
         }
 
         else {
             this.state = 'running';
-            //this.soundHandler.onUnpause();
+            this.onUnpause();
         }
     }
 
     gameOver() {
+        if (this.gameoverDebounce) return;
+
+        this.gameoverDebounce = true;
         this.state = 'gameover';
+        this.soundHandler.onGameOver();
     }
 
     onUnmount() {

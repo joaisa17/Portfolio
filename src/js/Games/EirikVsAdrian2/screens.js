@@ -45,13 +45,13 @@ export default class Screens {
         this.titleWithSubtitles(
             ctx,
             'PAUSED',
-            [`Press ${this.game.inputHandler.keyBinds.pause} to continue`]
+            [`Press ${this.game.inputHandler.keyBinds.pause} / Click to continue`]
         );
     }
 
     gameover(ctx) {
         this.background(ctx);
 
-        this.titleWithSubtitles(ctx, 'GAME OVER', ['Press R or click the screen to restart']);
+        this.titleWithSubtitles(ctx, 'GAME OVER', ['Press R / Click to restart']);
     }
 }
