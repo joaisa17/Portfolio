@@ -9,7 +9,7 @@ import { EirikVsAdrian2Loop, EirikVsAdrian2GameOver } from '@Media/wav';
 
 export default function EirikVsAdrian2() {
     return <Page noheader title="Eirik Vs. Adrian 2">
-        <GameWithCanvas devmode game={Game} width={1200} height={1000} assets={{
+        <GameWithCanvas game={Game} width={1200} height={1000} assets={{
             img: {
                 adrian: ImageAssets.Adrian,
                 eirik: ImageAssets.Eirik,

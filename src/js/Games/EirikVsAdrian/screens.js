@@ -67,7 +67,7 @@ export default class Screens {
 
         let subtitles = [
             score,
-            this.game.score > this.game.sessionHighScore ? 'NEW SESSION HIGH SCORE!' : `Session High Score: ${this.game.sessionHighScore}`,
+            this.game.score > this.game.highScore ? 'NEW HIGH SCORE!' : `High Score: ${this.game.highScore}`,
             `Press ${this.game.inputHandler.keyBinds.restart.replace('Key', '')} to restart`
         ];
 

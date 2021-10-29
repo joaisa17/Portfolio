@@ -93,7 +93,7 @@ const Song = props => {
         <Row className="bottom-row">
             <Col>
                 <Row className="title"><h5>{props.title}</h5></Row>
-                <Row className="date"><h6>{props.date}</h6></Row>
+                <Row className="date"><h6>Date: {props.date}</h6></Row>
             </Col>
 
             <Col>

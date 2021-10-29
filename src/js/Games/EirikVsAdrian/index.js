@@ -13,7 +13,7 @@ export default class Game {
         this.score = 0;
         this.scoreFloat = 0;
 
-        this.sessionHighScore = 0;
+        this.highScore = window.localStorage.getItem('EirikVsAdrianHighScore') || 0;
         this.swooshInterval = 10;
 
         this.state = 'paused';
@@ -68,7 +68,12 @@ export default class Game {
 
     restart() {
         if (this.state !== 'gameover') return;
-        this.sessionHighScore = this.score > this.sessionHighScore ? this.score : this.sessionHighScore;
+
+        if (this.score > this.highScore) {
+            this.highScore = this.score;
+            window.localStorage.setItem('EirikVsAdrianHighScore', this.score);
+        }
+        
         this.scoreFloat = this.props.devmode ? 60 : 0;
 
         this.player.reset();
