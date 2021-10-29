@@ -52,6 +52,14 @@ export default class Screens {
     gameover(ctx) {
         this.background(ctx);
 
-        this.titleWithSubtitles(ctx, 'GAME OVER', ['Press R / Click to restart']);
+        var subtitles = [
+            `Score: ${this.game.score}`
+        ]
+        
+        if (this.game.score > this.game.highScore) subtitles.push(`NEW HIGH SCORE!`)
+        else subtitles.push(`High Score: ${this.game.highScore}`)
+        subtitles.push('Press R / Click to restart')
+
+        this.titleWithSubtitles(ctx, 'GAME OVER', subtitles);
     }
 }

@@ -1,5 +1,5 @@
 class Enemy {
-    constructor(game) {
+    constructor(game, averagePos) {
         this.game = game;
 
         const gw = this.game.props.gameWidth;
@@ -12,13 +12,16 @@ class Enemy {
 
         this.pos = {
             x: this.game.player.pos.x + gw,
-            y: Math.random() * gh - this.game.scene.groundHeight
+            y: averagePos + (Math.random() * gh / 100) - this.game.scene.groundHeight
         }
+
+        const plrDiff = game.player.pos.y - this.pos.y;
 
         this.vel = {
             x: -Math.random() * 100,
-            y: Math.random() * 20 - 10
+            y: Math.random() * 20 - 10 + plrDiff / 30
         }
+
 
         this.image = new Image();
         this.image.src = this.game.props.assets.img.adrian;
@@ -40,8 +43,6 @@ class Enemy {
     }
 
     update(dt) {
-        console.log(this.pos.x);
-
         this.pos.x += this.vel.x * dt / 100;
         this.pos.y += this.vel.y * dt / 100;
 
@@ -80,6 +81,8 @@ export default class EnemyHandler {
         this.minSpawnTime = 250;
 
         this.screenArea = this.game.props.gameWidth * this.game.props.gameHeight;
+
+        this.averagePlayerPosition = this.game.props.gameHeight / 2;
     }
 
     getSpawnTime() {
@@ -93,17 +96,21 @@ export default class EnemyHandler {
     }
 
     createEnemy() {
+        this.averagePlayerPosition = (this.averagePlayerPosition + this.game.player.pos.y) / 2;
+
         this.spawnTime = this.getSpawnTime();
 
         if (!this.game || this.game.state !== 'running') return;
 
-        this.enemies.push(new Enemy(this.game));
+        this.enemies.push(new Enemy(this.game, this.averagePlayerPosition));
         this.game.soundHandler.onEnemySpawn();
     }
 
     reset() {
         this.spawnTime = 0;
         this.enemies = [];
+
+        this.averagePlayerPosition = this.game.props.gameHeight / 2;
     }
 
     update(dt) {

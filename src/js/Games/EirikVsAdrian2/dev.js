@@ -27,5 +27,7 @@ export default class Dev {
 
     drawHitboxes(ctx) {
         this.drawObjectHitbox(ctx, this.game.player);
+
+        this.game.enemyHandler.enemies.forEach(enemy => this.drawObjectHitbox(ctx, enemy))
     }
 }

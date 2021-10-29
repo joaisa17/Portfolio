@@ -59,7 +59,10 @@ export default class InputHandler {
 
         else if (this.keyIsKeyBind(code, this.keyBinds.restart)) {
             if (this.game.state === 'gameover') this.game.restart();
-            else if (this.game.state === 'running' && this.game.props.devmode) this.game.gameOver();
+            else if (this.game.state === 'running' && this.game.props.devmode) {
+                this.game.soundHandler.onPlayerDie();
+                this.game.gameOver();
+            }
         }
 
         else if (this.keyIsKeyBind(code, this.keyBinds.pause)) this.game.togglePause();

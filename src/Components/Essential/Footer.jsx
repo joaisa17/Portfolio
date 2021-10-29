@@ -41,7 +41,8 @@ export default class Footer extends React.Component {
                     <Row>
                         <Col>
                             <Row className="link-title">Games</Row>
-                            <Row><Link to="/games/eirik-vs-adrian">Eirik Vs Adrian</Link></Row>
+                            <Row><Link to="/games/eirik-vs-adrian">Eirik Vs. Adrian</Link></Row>
+                            <Row><Link to="/games/eirik-vs-adrian-2">Eirik Vs. Adrian 2</Link></Row>
                         </Col>
 
                         <Col>

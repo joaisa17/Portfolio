@@ -23,7 +23,11 @@
 }
 
 .footer .top {
-    width: 80%;
+    width: 75.5%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 4%;
     padding: 10px 0 40px 0;
 }
 
@@ -55,6 +59,9 @@
     font-size: 36px;
 
     padding: 0;
+    
+    position: relative;
+    top: 8px;
 }
 
 .footer .bottom {

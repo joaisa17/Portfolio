@@ -1,5 +1,6 @@
 import Adrian from './Adrian.png';
 import Eirik from './Eirik.png';
+import Wing from './Wing.png';
 
 import Ground from './Ground.png';
 
@@ -12,6 +13,7 @@ import BackgroundTrees from './BackgroundTrees.png';
 export {
     Adrian,
     Eirik,
+    Wing,
 
     Ground,
 

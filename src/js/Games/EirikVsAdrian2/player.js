@@ -26,6 +26,7 @@ export default class Player {
         this.dying = false;
         this.dead = false;
 
+        this.waiting = true;
         this.moving = false;
 
         this.movementSpeed = 64;
@@ -40,8 +41,24 @@ export default class Player {
 
         this.image = new Image();
         this.image.src = this.game.props.assets.img.eirik;
+
+        this.wingImage = new Image();
+        this.wingImage.src = this.game.props.assets.img.wing;
+
+        this.wingWidth = 40 * 2.2;
+        this.wingHeight = 50 * 2.2;
         
         this.imageSizeOffset = 56;
+
+        this.hoverHeight = 40;
+        this.hoverSpeed = 14;
+        this.hoveringUp = true;
+
+        this.wingFlappingUp = true;
+        this.wingFlappingSpeed = 8;
+        this.wingRotation = 0;
+        this.wingMaxRotation = 0.6;
+        this.wingRotationOffset = -2;
     }
 
     setSprint(v) {
@@ -52,6 +69,7 @@ export default class Player {
         if (this.game.state !== 'running' || this.dying) return;
 
         if (!this.moving) {
+            this.waiting = false;
             this.moving = true;
             this.game.soundHandler.onPlayerStart();
         }
@@ -98,6 +116,8 @@ export default class Player {
     reset() {
         this.dying = false;
         this.dead = false;
+        this.waiting = true;
+        this.wingRotation = 0;
 
         this.moving = false;
 
@@ -115,8 +135,40 @@ export default class Player {
         this.rotation = 0;
     }
 
+    updateWings(dt) {
+        if (this.dying) {
+            this.wingRotation = this.rotation;
+            return;
+        }
+        if (this.wingRotation >= this.wingMaxRotation) this.wingFlappingUp = false;
+        if (this.wingRotation <= -this.wingMaxRotation) this.wingFlappingUp = true;
+
+        this.wingRotation += dt / 1000 * (this.wingFlappingUp ? this.wingFlappingSpeed : -this.wingFlappingSpeed);
+    }
+
     update(dt) {
         if (this.dead) return;
+
+        this.updateWings(dt);
+
+        if (this.waiting) {
+
+            const topPos = this.gh / 2 - this.hoverHeight;
+            const bottomPos = this.gh / 2 + this.hoverHeight;
+
+            if (this.pos.y <= topPos) this.hoveringUp = false;
+            if (this.pos.y >= bottomPos) this.hoveringUp = true;
+
+            if (this.hoveringUp) {
+                this.pos.y -= this.hoverSpeed * dt / 100;
+            }
+
+            else {
+                this.pos.y += this.hoverSpeed * dt / 100;
+            }
+
+            return;
+        }
         
         if (this.moving) {
             this.rotation += this.rotVel * dt / 1000;
@@ -146,15 +198,66 @@ export default class Player {
         if (this.pos.x - this.game.camera.pos.x >= 400) this.game.camera.pos.x += this.vel.x * dt / 100;
     }
 
+    drawWings(ctx) {
+
+        const translatePos = {
+            x: this.pos.x - this.imageSizeOffset / 2 + this.size / 2 - this.game.camera.pos.x,
+            y: this.pos.y - this.imageSizeOffset / 2 + this.size / 2 - this.game.camera.pos.y
+        };
+        
+        // Left wing
+        const wingDrawPosLeft = {
+            x: -16,
+            y: 20
+        };
+
+        ctx.translate(translatePos.x + wingDrawPosLeft.x, translatePos.y + wingDrawPosLeft.y);
+        ctx.rotate(this.wingRotation + this.wingRotationOffset / 10);
+
+        ctx.drawImage(
+            this.wingImage,
+            -this.wingWidth,
+            -this.wingHeight + 20,
+            this.wingWidth,
+            this.wingHeight
+        );
+
+        // Right wing
+        const wingDrawPosRight = {
+            x: 16,
+            y: 20
+        };
+
+        ctx.setTransform(1,0,0,1,0,0);
+        ctx.translate(translatePos.x + wingDrawPosRight.x, translatePos.y + wingDrawPosRight.y);
+        ctx.rotate(-this.wingRotation - this.wingRotationOffset / 10)
+
+        ctx.scale(-1, 1);
+
+        ctx.drawImage(
+            this.wingImage,
+            -this.wingWidth,
+            -this.wingHeight + 20,
+            this.wingWidth,
+            this.wingHeight
+        )
+
+        ctx.setTransform(1,0,0,1,0,0);
+    }
+
     draw(ctx) {
+        this.drawWings(ctx);
+        
         const drawPos = {
             x: this.pos.x - this.imageSizeOffset / 2 + this.size / 2 - this.game.camera.pos.x,
             y: this.pos.y - this.imageSizeOffset / 2 + this.size / 2 - this.game.camera.pos.y
         };
-
+        
         ctx.translate(drawPos.x, drawPos.y)
-        ctx.rotate(this.rotation)
+        ctx.rotate(this.rotation);
 
+        ctx.scale(-1, 1)
+        
         ctx.drawImage(
             this.image,
             0 - this.size,
@@ -163,6 +266,6 @@ export default class Player {
             this.size + this.imageSizeOffset
         );
 
-        ctx.setTransform(1,0,0,1,0,0)
+        ctx.setTransform(1,0,0,1,0,0);
     }
 }

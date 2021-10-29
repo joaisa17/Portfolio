@@ -21,6 +21,7 @@ export default class Game {
 
         this.scoreFloat = 0;
         this.score = 0;
+        this.highScore = window.localStorage.getItem('EirikVsAdrian2HighScore') || 0;
 
         this.state = 'paused';
 
@@ -43,10 +44,12 @@ export default class Game {
         this.player.update(dt);
         this.enemyHandler.update(dt);
 
-        if (this.player.moving) {
+        if (this.player.moving && !this.player.dying) {
             this.scoreFloat += dt / 1000;
             this.score = Math.floor(this.scoreFloat);
         }
+
+        if (this.score % 10 === 0 && this.score > 0) this.soundHandler.onPlayerSwoosh();
     }
 
     draw(ctx) {
@@ -62,6 +65,8 @@ export default class Game {
     }
 
     restart() {
+        if (this.score > this.highScore) this.highScore = this.score;
+
         this.gameoverDebounce = false;
         this.scoreFloat = 0;
         this.score = 0;
@@ -88,7 +93,6 @@ export default class Game {
     }
 
     togglePause(force) {
-        console.log('Toggling pause')
         if (
             (this.state !== 'running' && this.state !== 'paused')
             || this.player.dying
@@ -114,9 +118,15 @@ export default class Game {
         this.gameoverDebounce = true;
         this.state = 'gameover';
         this.soundHandler.onGameOver();
+
+        if (this.score > this.highScore) {
+            window.localStorage.setItem('EirikVsAdrian2HighScore', this.score);
+        }
     }
 
     onUnmount() {
         this.terminated = true;
+
+        this.soundHandler.stopAllSounds();
     }
 }

@@ -9,6 +9,8 @@ export default class SoundHandler {
         this.enemySpawn = assets.adrian;
 
         this.swoosh = new Audio(assets.eirikSwoosh);
+        this.lastSwooshScore = 0;
+
         this.death = new Audio(assets.eirikAu);
 
         this.playerStarted = false;
@@ -23,6 +25,12 @@ export default class SoundHandler {
             volume: 0.5
         });
 
+        this.gameOver = new Howl({
+            src: game.props.assets.audio.gameOver,
+            loop: false,
+            volume: 0.75
+        });
+
         this.enemySounds = [];
     }
 
@@ -31,6 +39,7 @@ export default class SoundHandler {
         if (this.death.currentTime > 0) this.swoosh.pause();
 
         this.music.stop();
+        this.gameOver.stop();
         this.swoosh.pause();
 
         this.enemySounds.forEach(enemySound => {enemySound.pause()});
@@ -54,6 +63,10 @@ export default class SoundHandler {
     onRestart() {
         this.enemySounds = [];
         this.playerStarted = false;
+
+        this.lastSwooshScore = 0;
+
+        if (this.gameOver.playing()) this.gameOver.stop();
     }
 
     onPause() {
@@ -76,6 +89,13 @@ export default class SoundHandler {
         }
     }
 
+    onPlayerSwoosh() {
+        if (this.game.score !== this.lastSwooshScore) {
+            this.swoosh.play();
+            this.lastSwooshScore = this.game.score;
+        }
+    }
+
     onPlayerDie() {
         this.death.play();
     }
@@ -84,8 +104,7 @@ export default class SoundHandler {
         if (this.game.terminated) return;
         
         this.music.stop();
-
-        if (this.scoreSounds[this.game.score]) setTimeout(this.scoreSounds[this.game.score].play(), 300);
+        this.gameOver.play();
 
         this.enemySounds.forEach(enemySound => {
             enemySound.pause();

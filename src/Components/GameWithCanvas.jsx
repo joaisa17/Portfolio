@@ -104,7 +104,7 @@ const GameWithCanvas = ({game, width, height, ...props}) => {
         }, false);
 
         window.addEventListener('blur', () => {
-            if (game.current !== undefined) game.current.togglePause(true);
+            if (gameRef.current !== undefined && gameRef.current.state === 'running') gameRef.current.togglePause();
         });
 
         requestAnimationFrame(gameLoop);
