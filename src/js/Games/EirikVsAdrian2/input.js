@@ -26,7 +26,7 @@ export default class InputHandler {
             this.keyStates[event.code] = false;
         });
 
-        this.game.props.canvas.addEventListener('click', () => {
+        this.game.props.canvas.addEventListener('mousedown', () => {
             switch(this.game.state) {
                 case 'paused':
                     this.game.togglePause(false);
