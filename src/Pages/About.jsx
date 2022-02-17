@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { JoakimCubeScene } from '@Media/gltf';
 import { ThreeScrollViewer } from '@Components';
 
-import CvJoakimIsaksen from '@Media/documents/CvJoakimIsaksen.doc';
+import CvJoakimIsaksen from '@Media/documents/CvJoakimIsaksen.pdf';
 import { IceTea } from '@Media/mp4';
 
 import '@css/Pages/About.css';
