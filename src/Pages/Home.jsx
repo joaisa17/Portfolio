@@ -11,7 +11,6 @@ const subtitles = [
     '3D Modeller',
     'Video Editor',
     'Music Producer',
-    'Gamer',
     'Norwegian'
 ];
 

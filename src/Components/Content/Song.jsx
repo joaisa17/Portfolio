@@ -80,8 +80,8 @@ const Song = props => {
                     step={duration / 1000}
                     onChange={e => setTimePosition(e.target.value)}
                     
-                    onMouseDown={() => setChangingTime(true)}
-                    onMouseUp={() => setChangingTime(false)}
+                    onPointerDown={() => setChangingTime(true)}
+                    onPointerUp={() => setChangingTime(false)}
                 />
             </Col>
 

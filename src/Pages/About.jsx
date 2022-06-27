@@ -10,13 +10,16 @@ import { ThreeScrollViewer } from '@Components';
 import CvJoakimIsaksen from '@Media/documents/CvJoakimIsaksen.pdf';
 import { IceTea } from '@Media/mp4';
 
+import YearsSince from '@js/YearsSince';
+
 import '@css/Pages/About.css';
 
 const description = `This page contains everything
 you need to know about
-Joakim Isaksen.`
+Joakim Isaksen.`;
 
 export default function About() {
+    
     return <Page title="About Me" description={description}>
         <ThreeScrollViewer src={JoakimCubeScene} />
         <div className="mt-4 about-title">
@@ -29,13 +32,13 @@ export default function About() {
                 fontWeight: '400'
             }}>
                 <p>
-                    My name is Joakim Isaksen. I'm an IT student from Norway,
-                    and I study IT-Development at Hamar Katedralskole.
+                    My name is Joakim Isaksen. I'm a {YearsSince('2004-08-17')} year old IT student from Norway,
+                    and I studied IT-Development at Hamar Katedralskole between the years 2020-2022.
                 </p>
 
                 <p>
                     My main interests all revolve around computers. I'm highly interested
-                    in video games, development, and music production through digital software.
+                    in video games, programming and music production through digital software.
                 </p>
 
                 <div className="text-center py-5">
@@ -49,7 +52,7 @@ export default function About() {
                 <p className="pb-4">
                     When it comes to my competence in development, I'm highly experienced with
                     the framework I used to make this website, React. I'm a fast learner, and
-                    have just passed 1 year of experience using HTML, CSS and Javascript, and
+                    have just passed {YearsSince('2020-06-18')} years of experience using HTML, CSS and Javascript, and
                     am still actively learning. I'm fairly experienced with backend development,
                     using Express, and I've also made a few games in Unity with C#.
                 </p>
@@ -89,6 +92,8 @@ export default function About() {
                     my <SocialLink className="link" href="ignwombat.newgrounds.com">NewGrounds Page</SocialLink> or
                     on <SocialLink className="link" href="soundcloud.com/ignwombat">SoundCloud</SocialLink>.
                 </p>
+
+                <p>I do also upload various content other than music on my YouTube Channel.</p>
             </h3>
         </div>
     </Page>
