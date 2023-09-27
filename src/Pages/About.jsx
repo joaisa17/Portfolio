@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { JoakimCubeScene } from '@Media/gltf';
 import { ThreeScrollViewer } from '@Components';
 
-import CvJoakimIsaksen from '@Media/documents/CvJoakimIsaksen.pdf';
 import { IceTea } from '@Media/mp4';
 
 import YearsSince from '@js/YearsSince';
@@ -40,14 +39,6 @@ export default function About() {
                     My main interests all revolve around computers. I'm highly interested
                     in video games, programming and music production through digital software.
                 </p>
-
-                <div className="text-center py-5">
-                    <p style={{fontWeight: 'bold'}}>
-                        If you're hiring, and are looking for my CV, click the button below,
-                        or click <a href={CvJoakimIsaksen} className="link" download>here</a>
-                    </p>
-                    <Button style={{fontSize: 'var(--size-big)'}} variant="outline-light" download href={CvJoakimIsaksen}>Download CV</Button>
-                </div>
 
                 <p className="pb-4">
                     When it comes to my competence in development, I'm highly experienced with
