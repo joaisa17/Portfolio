@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Page, Title, SocialLink, ExternalLink } from '@Components';
-import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { JoakimCubeScene } from '@Media/gltf';
